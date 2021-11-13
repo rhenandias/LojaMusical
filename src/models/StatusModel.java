@@ -1,14 +1,14 @@
 package models;
 
 public class StatusModel {
-	private int id;
+	private int idStatus;
 	private String nome;
 	
-	public int getId() {
-		return id;
+	public int getidStatus() {
+		return idStatus;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setidStatus(int idStatus) {
+		this.idStatus = idStatus;
 	}
 	public String getNome() {
 		return nome;
