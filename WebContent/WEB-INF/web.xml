@@ -16,4 +16,8 @@
   	<servlet-name>CategoriaController</servlet-name>
   	<servlet-class>controllers/CategoriaController.java</servlet-class>
   </servlet>
+    <servlet>
+  	<servlet-name>UsuarioController</servlet-name>
+  	<servlet-class>controllers/UsuarioController.java</servlet-class>
+  </servlet>
 </web-app>

@@ -13,10 +13,16 @@
 	}
 </style>
 
+<%
+	// Definir aqui se o usuário está logado e qual o tipo de usuario
+	boolean logado = false;
+	boolean administrador = false;
+%>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3" style="font-size: 0.9rem">
 	<div class="container-fluid">
    	    <a class="navbar-brand" href="#">
-      		<img src="${pageContext.request.contextPath}/Resources/Images/logo_navbar.png" alt="Logo Site" width="150">
+      		<img src="${pageContext.request.contextPath}/Resources/Images/logo_navbar_2.png" alt="Logo Site" width="150">
    		</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
@@ -25,7 +31,7 @@
 	      	
       		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
         		<li class="nav-item">
-          			<a class="nav-link active" aria-current="page" href="#">Início</a>
+          			<a class="nav-link active" aria-current="page" href="home">Início</a>
         		</li>
         		<li class="nav-item dropdown">
           			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,15 +61,47 @@
 				<li>
 			 		<div class="vertical-divider"></div>
 			 	</li>
-				<li class="nav-item">
-					<div class="d-flex align-items-center">
-				    	<i class="bi bi-person" style="font-size: 2rem; color: white;"></i>
-						<div style="font-size: 0.8rem">
-							<a class="nav-link" style="line-height: 0.3rem" href="#">Login</a>
-							<a class="nav-link" style="line-height: 0.3rem" href="#">Cadastrar</a>
+			 	
+      			<!-- Usuário Não logado, Exibir opções de Cadastro e Login -->
+				<% if(!logado) { %>
+					<li class="nav-item">
+						<div class="d-flex align-items-center">
+					    	<i class="bi bi-person" style="font-size: 2rem; color: white;"></i>
+							<div style="font-size: 0.8rem">
+								<a class="nav-link" style="line-height: 0.3rem" href="usuario/login">Login</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="usuario/cadastrar">Cadastrar</a>
+							</div>
 						</div>
-					</div>
-				</li>	
+					</li>	
+				<% } %>
+				
+				<!-- Usuário (cliente) já está logado, exibir painel do usuário -->
+				<% if(logado && !administrador) { %>
+					<li class="nav-item">
+						<div class="d-flex align-items-center">
+					    	<i class="bi bi-box" style="font-size: 2rem; color: white;"></i>
+							<div style="font-size: 0.8rem">
+								<a class="nav-link" style="line-height: 0.3rem" href="#">Meus Pedidos</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="#">Sair</a>
+							</div>
+						</div>
+					</li>	
+				<% } %>
+				
+				<!-- Usuário (administrador) já está logado, exibir painel do administrador -->
+				<% if(logado && administrador) { %>
+					<li class="nav-item">
+						<div class="d-flex align-items-center">
+					    	<i class="bi bi-gear" style="font-size: 2rem; color: white;"></i>
+							<div style="font-size: 0.8rem">
+								<a class="nav-link" style="line-height: 0.3rem" href="#">Painel da Loja</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="#">Sair</a>
+							</div>
+						</div>
+					</li>	
+				<% } %>
+				
+				<!-- Carrinho aparece para todos os tipos de usuários -->
 				<li>
 					<div class="vertical-divider"></div>
 				</li>
@@ -73,6 +111,7 @@
 			 			<a class="nav-link" href="#">Carrinho</a>
 			 		</div>
 		  		</li>
+		  		
 			</ul> 
     	</div>
   	</div>
