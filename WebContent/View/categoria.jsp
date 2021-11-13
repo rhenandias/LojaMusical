@@ -12,7 +12,7 @@
 		// Busca do Model, os instrumentos na categoria = "categoria"
 		//response.getWriter().write(categoria);
 		
-		String[] resultados = { "Produto 1", "Produto 2" } ;
+		String[] resultados = { "Produto 1", "Produto 2", "Produto 3" } ;
 	%>
 	<h1>Categoria ...</h1>
 	

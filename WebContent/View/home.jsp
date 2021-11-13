@@ -9,7 +9,7 @@
 </head>
 <body>
 	<%@include file="/Resources/navbar.jsp" %>
-	<h1>Vitrine</h1>
+	<h1>PRODUTOS</h1>
 	<%@include file="/Resources/jsBootstrap.jsp" %>
 </body>
 </html>
