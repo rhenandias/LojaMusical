@@ -19,7 +19,7 @@
 	boolean administrador = false;
 %>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3" style="font-size: 0.9rem">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top" style="font-size: 0.9rem">
 	<div class="container-fluid">
    	    <a class="navbar-brand" href="#">
       		<img src="${pageContext.request.contextPath}/Resources/Images/logo_navbar_2.png" alt="Logo Site" width="150">
