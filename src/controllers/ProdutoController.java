@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,33 +11,50 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.CategoriaModel;
+import models.ProdutoModel;
 
-@WebServlet("/categoria/*")
-public class CategoriaController extends HttpServlet {
+/**
+ * Servlet implementation class ProdutoController
+ */
+@WebServlet("/produto/*")
+public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public CategoriaController() {
+    public ProdutoController() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String uri = request.getRequestURI();
 		String action = uri.substring(uri.lastIndexOf("/") + 1);
-		RequestDispatcher tagFile = null;
+		
+		String idCategoria = "";
+		String limit = "";
+		
+		if(request.getParameter("idCategoria") != null) {
+			idCategoria = request.getParameter("idCategoria");
+		}
+
+		if(request.getParameter("limit") != null) {
+			limit = request.getParameter("limit");
+		}
 		
 		switch(action) {
 		case "listar": {
-			CategoriaModel categoria = new CategoriaModel();
-			String categorias = categoria.listar();
-			response.getWriter().write(categorias);
+			ProdutoModel produto = new ProdutoModel();
+			String produtos = produto.listar(idCategoria, limit);
+			response.getWriter().write(produtos);
 		} break;
 		default:
 			response.getWriter().write("Outra página");
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

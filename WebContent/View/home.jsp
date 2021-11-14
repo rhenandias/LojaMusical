@@ -26,6 +26,8 @@
 			
 			for(const i in resposta){
 				const nomeCategoria = resposta[parseInt(i).toString()]["nome"];
+				const idCategoria = resposta[parseInt(i).toString()]["idCategoria"];
+				
 				const tituloHtml = "<h3>" + nomeCategoria + "</h3";
 				
 				const html = `
@@ -34,8 +36,19 @@
 					<div>
 				`
 				$("#categorias").append(html);
+				
+				$.ajax({
+					type: "GET",
+					url: "produto/listar",
+					data: {
+						idCategoria: idCategoria,
+						limit: 2
+					},
+					success: function(response){
+						console.log("Finalizado");
+					}
+				});
 			}
-			
 		});
 	});
 </script>

@@ -5,18 +5,13 @@ import java.sql.SQLException;
 
 import com.google.gson.JsonObject;
 
+import database.DB;
 import database.DBQuery;
 
 public class CategoriaModel {
 	// Variáveis
 	private int idCategoria;
 	private String nome;
-	
-	// Manipulação
-	private String	tableName = "Categoria";
-	private String 	fieldsName = "idCategoria, nome";
-	private String 	keyField = "idCategoria";
-	private DBQuery	dbQuery = new DBQuery(this.tableName, this.fieldsName, this.keyField);
 	
 	// Construtores
 	public CategoriaModel() {
@@ -34,7 +29,7 @@ public class CategoriaModel {
 	// Métodos
 	
 	public String listar() {
-		ResultSet result  = this.dbQuery.select("");
+		ResultSet result  = DB.executarQuery("SELECT * FROM Categoria");
 		
 		JsonObject json = new JsonObject();
 		

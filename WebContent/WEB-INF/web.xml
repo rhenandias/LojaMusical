@@ -20,4 +20,8 @@
   	<servlet-name>UsuarioController</servlet-name>
   	<servlet-class>controllers/UsuarioController.java</servlet-class>
   </servlet>
+   <servlet>
+  	<servlet-name>ProdutoController</servlet-name>
+  	<servlet-class>controllers/ProdutoController.java</servlet-class>
+  </servlet>
 </web-app>
