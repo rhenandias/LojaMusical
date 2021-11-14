@@ -13,7 +13,7 @@ public class DBConnection {
 	private String user;
 	private String password;
 	
-	private Connection connection = null;
+	private static Connection connection = null;
 	
 	public DBConnection(String host, String port, String schema, String user, String password) {
 		this.setHost(host);
@@ -21,7 +21,7 @@ public class DBConnection {
 		this.setSchema(schema);
 		this.setUser(user);
 		this.setPassword(password);
-		this.doConnection();
+		this.getConnection();
 	}
 	
 	public DBConnection() {
@@ -30,10 +30,10 @@ public class DBConnection {
 		this.setSchema	("LojaMusical");
 		this.setUser	("root");
 		this.setPassword("");
-		this.doConnection();
+		this.getConnection();
 	}
 	
-	private void doConnection() {
+	public Connection getConnection() {
 		String timezone = "&useTimezone=true&serverTimezone=UTC";// use o &useTimezone=true&serverTimezone=UTC para não ter problemas de data;
 		String url = "jdbc:mysql://"+this.host+":"+port+"/"+this.schema+"?user="+this.user+"&password="+this.password+timezone;
 		try {
@@ -43,6 +43,7 @@ public class DBConnection {
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 			this.connection = DriverManager.getConnection(url);
+			return this.connection;
 		} catch (InstantiationException e){
 			e.printStackTrace();
 		} catch (IllegalAccessException e){
@@ -60,6 +61,7 @@ public class DBConnection {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	public String getHost() {
@@ -100,10 +102,6 @@ public class DBConnection {
 	
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public Connection getConnection() {
-		return (this.connection);
 	}
 
 }
