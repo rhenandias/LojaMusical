@@ -31,7 +31,7 @@
 	      	
       		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
         		<li class="nav-item">
-          			<a class="nav-link active" aria-current="page" href="home">Início</a>
+          			<a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Início</a>
         		</li>
         		<li class="nav-item dropdown">
           			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,8 +68,8 @@
 						<div class="d-flex align-items-center">
 					    	<i class="bi bi-person" style="font-size: 2rem; color: white;"></i>
 							<div style="font-size: 0.8rem">
-								<a class="nav-link" style="line-height: 0.3rem" href="usuario/login">Login</a>
-								<a class="nav-link" style="line-height: 0.3rem" href="usuario/cadastrar">Cadastrar</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/usuario/login">Login</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/usuario/cadastrar">Cadastrar</a>
 							</div>
 						</div>
 					</li>	

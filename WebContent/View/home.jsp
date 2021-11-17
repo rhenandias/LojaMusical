@@ -74,7 +74,7 @@
 								"marca": "Casio",
 								"preco": 159.99,
 								"quantidade": 1,
-								"imagem": "produto_2.png"
+								"imagem": "produto_3.png"
 							}
 						];
 						

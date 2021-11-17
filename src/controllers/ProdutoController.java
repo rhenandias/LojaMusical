@@ -28,22 +28,27 @@ public class ProdutoController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String action = uri.substring(uri.lastIndexOf("/") + 1);
 		
-		String idCategoria = "";
-		String limit = "";
-		
-		if(request.getParameter("idCategoria") != null) {
-			idCategoria = request.getParameter("idCategoria");
-		}
-
-		if(request.getParameter("limit") != null) {
-			limit = request.getParameter("limit");
-		}
-		
 		switch(action) {
 		case "listar": {
+			String idCategoria = "";
+			String limit = "";
+			
+			if(request.getParameter("idCategoria") != null) {
+				idCategoria = request.getParameter("idCategoria");
+			}
+
+			if(request.getParameter("limit") != null) {
+				limit = request.getParameter("limit");
+			}
+			
 			ProdutoModel produto = new ProdutoModel();
 			String produtos = produto.listar(idCategoria, limit);
 			response.getWriter().write(produtos);
+		} break;
+		case "teste": {
+			RequestDispatcher tagFile = null;
+			tagFile = getServletContext().getRequestDispatcher("/View/produto.jsp");
+			tagFile.forward(request, response);
 		} break;
 		default:
 			response.getWriter().write("Outra página");
