@@ -3,6 +3,8 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import database.DB;
+
 public class VendaProdutoModel {
 	private int idVendaProduto;
 	private int idVenda;
@@ -25,8 +27,26 @@ public class VendaProdutoModel {
 		
 	}
 	
-	// Listar produtos com p (utilizado na tela inicial)
+	// Listar produtos com parâmetros de categoria e limite (utilizado na tela inicial)
 		public String listar(String idVenda, String limit) {
+			String query = "SELECT * FROM VendaProduto WHERE idVenda = " + idVenda +  " limit " + limit;
+			
+			ResultSet result  = DB.executarQuery(query);
+			
+			try {
+				while(result.next()) {
+					System.out.println(result.getString("nome"));
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return "";
+		}
+	
+	// Listar produtos com p (utilizado na tela inicial)
+		public String listar1(String idVenda, String limit) {
 			String query = "SELECT * FROM VendaProduto WHERE idVenda = idVenda";
 			
 			ResultSet result  = DB.executarQuery(query);
