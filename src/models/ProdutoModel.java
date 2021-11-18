@@ -31,7 +31,7 @@ public class ProdutoModel {
 		this.imagem = imagem;
 	}
 
-	// Lisar produtos com parâmetros de categoria e limite (utilizado na tela inicial)
+	// Listar produtos com parâmetros de categoria e limite (utilizado na tela inicial)
 	public String listar(String idCategoria, String limit) {
 		String query = "SELECT * FROM Produto WHERE idCategoria = " + idCategoria +  " limit " + limit;
 		
@@ -49,9 +49,9 @@ public class ProdutoModel {
 		return "";
 	}
 	
-	// Lisar produtos por idProduto (utilizado na página de cada produto)
+	// Listar produtos por idProduto (utilizado na página de cada produto)
 		public String listar(String idProduto) {
-			String query = "SELECT * FROM Produto WHERE idCategoria = idProduto";
+			String query = "SELECT * FROM Produto WHERE idProduto = idProduto";
 			
 			ResultSet result  = DB.executarQuery(query);
 			
