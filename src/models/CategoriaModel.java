@@ -23,7 +23,8 @@ public class CategoriaModel {
 	}
 	
 	public CategoriaModel(String idCategoria, String nome) {
-		
+		this.idCategoria = Integer.parseInt(idCategoria);
+		this.nome = nome; 
 	}
 	
 	// Métodos
