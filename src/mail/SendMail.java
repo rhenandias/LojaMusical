@@ -17,13 +17,25 @@ public class SendMail {
 	private Properties properties = new Properties();
 	private Session    session	  = null;		
 	
+	/**
+	 * 
+	 * Fazendo envio de email através do google:
+	 * @param smtpHost = 587
+	 * @param smtpPort = smtp.gmail.com
+	 * @param username = testeifspgru@gmail.com
+	 * @param password = 13246578
+	 * @param auth = tls
+	 * 
+	 */
 	public SendMail(String smtpHost, String smtpPort, String username, String password, String auth /* none:25, tls:587, ssl:465  */) {
 		this.properties.put("mail.smtp.host", smtpHost);
 		this.properties.put("mail.smtp.port", smtpPort);
 		
 		if (auth.toLowerCase().equals("tls")){
 			this.properties.put("mail.smtp.starttls.enable", "true");
+			this.properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
 			this.properties.put("mail.smtp.auth", "true");
+			this.properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		}
 
 		if (auth.toLowerCase().equals("ssl")){
