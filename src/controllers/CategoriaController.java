@@ -42,7 +42,7 @@ public class CategoriaController extends HttpServlet {
 		case "listar":
 			CategoriaModel categoria = new CategoriaModel();
 			String categorias = categoria.listar();
-			response.setContentType("application/json; charset=UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(categorias);
 			
