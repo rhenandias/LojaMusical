@@ -7,6 +7,17 @@ public class CompraProdutoModel {
 	private float valor;
 	
 	
+	public CompraProdutoModel() {}
+	
+	public CompraProdutoModel(int idCompra, int idProduto, int quantidade, float valor) {
+		super();
+		this.idCompra = idCompra;
+		this.idProduto = idProduto;
+		this.quantidade = quantidade;
+		this.valor = valor;
+	}
+	
+	
 	public int getIdCompra() {
 		return idCompra;
 	}

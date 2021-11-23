@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import database.DB;
 
 public class VendaProdutoModel {
-	private int idVendaProduto;
 	private int idVenda;
 	private int idProduto;
 	private int quantidade;
@@ -17,9 +16,8 @@ public class VendaProdutoModel {
 
 	public VendaProdutoModel() { }
 	
-	public VendaProdutoModel(int idVendaProduto, int idVenda, int idProduto, int quantidade, float valor) {
+	public VendaProdutoModel(int idVenda, int idProduto, int quantidade, float valor) {
 		super();
-		this.idVendaProduto = idVendaProduto;
 		this.idVenda = idVenda;
 		this.idProduto = idProduto;
 		this.quantidade = quantidade;
@@ -87,11 +85,5 @@ public class VendaProdutoModel {
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-	public int getIdVendaProduto() {
-		return idVendaProduto;
-	}
-
-	public void setIdVendaProduto(int idVendaProduto) {
-		this.idVendaProduto = idVendaProduto;
-	}
+	
 }

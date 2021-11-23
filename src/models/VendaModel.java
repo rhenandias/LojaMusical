@@ -1,11 +1,26 @@
 package models;
 
+import com.mysql.fabric.xmlrpc.base.Data;
+
 public class VendaModel {
 	private int idVenda;
 	private int idUsuario;
 	private int idStatusAndamento;
-	private String data;
+	private Data data;
 	private Float valor;
+	
+	
+	public VendaModel() { }
+	
+	public VendaModel(int idVenda, int idUsuario, int idStatusAndamento, Data data, Float valor ) {
+		super();
+		this.idVenda = idVenda;
+		this.idUsuario = idUsuario;
+		this.idStatusAndamento = idStatusAndamento;
+		this.data = data;
+		this.valor = valor;
+		
+	}
 	
 	public int getIdVenda() {
 		return idVenda;
@@ -25,10 +40,10 @@ public class VendaModel {
 	public void setIdStatusAndamento(int idStatusAndamento) {
 		this.idStatusAndamento = idStatusAndamento;
 	}
-	public String getData() {
+	public Data getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(Data data) {
 		this.data = data;
 	}
 	public Float getValor() {
