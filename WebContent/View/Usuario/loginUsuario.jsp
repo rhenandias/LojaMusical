@@ -86,24 +86,25 @@
 					</div>
 					
 					<form class="form">
+						<input class="form-control" name="action" value="login" hidden>
 						<div class="row g-3 form-line">
 						  	<div class="col-sm">
 					  			<label class="form-label">Email</label>
-						    	<input type="email" class="form-control" placeholder="Email">
+						    	<input type="email" name="email" class="form-control" placeholder="Email">
 						  	</div>
 						</div>
 						
 						<div class="row g-3 form-line">
 						  	<div class="col-sm">
 					  			<label class="form-label">Senha</label>
-						    	<input type="password" class="form-control" placeholder="Senha">
+						    	<input type="password" name="senha" class="form-control" placeholder="Senha">
 						  	</div>
 						</div>
 						
 						<div class="mx-2">
 							<div class="row g-3 mt-3">
 								<div class="d-grid gap-3">
-		  							<button class="btn btn-primary" type="button">Login</button>
+		  							<button class="btn btn-primary" name="login" type="button">Login</button>
 								</div>
 							</div>
 						</div>

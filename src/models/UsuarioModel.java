@@ -22,8 +22,6 @@ public class UsuarioModel {
 	private String estado;
 	
 	
-<<<<<<< HEAD
-	
 	public UsuarioModel(int idUsuario, int idNivelUsuario, String nome, String email, String telefone, String senha,
 			String cpf, Boolean ativo, String codigoAtivacao, String endereco, String numero, String bairro,
 			String cidade, String estado) {
@@ -137,8 +135,6 @@ public class UsuarioModel {
 		return true;
 	}
 	
-=======
->>>>>>> 37fe6bb5e49c8d4fe832ea3d8a1a270afbfc2330
 	public int getIdUsuario() {
 		return idUsuario;
 	}

@@ -34,6 +34,7 @@ public class CategoriaController extends HttpServlet {
 		
 		String uri = request.getRequestURI();
 		String action = uri.substring(uri.lastIndexOf("/") + 1);
+		RequestDispatcher tagFile = null;
 		
 		// response.setContentType("application/json");
 		
@@ -48,7 +49,7 @@ public class CategoriaController extends HttpServlet {
 			response.getWriter().write("Outra página");
 		}
 		
-		RequestDispatcher tagFile = null;
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
