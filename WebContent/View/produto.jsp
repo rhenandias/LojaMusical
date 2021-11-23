@@ -45,7 +45,7 @@
 			<div class="card">
 		  		<div class="card-body d-flex flex-row">
 			    	<div >
-			    		<img class="border" src=\${fotoUrl} alt="Imagem do Produto" width="500px">
+			    		<img class="border" src=\${fotoUrl} alt="Imagem do Produto" width="650px">
 					</div>
 			    	<div class="container-fluid produto-info p-4">
 			    		<div class="text-center">		    		

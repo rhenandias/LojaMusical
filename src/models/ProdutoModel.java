@@ -50,7 +50,7 @@ public class ProdutoModel {
 	}
 	
 	// Listar produtos por idProduto (utilizado na página de cada produto)
-		public String listar1(String idProduto) {
+		public String listar(String idProduto) {
 			String query = "SELECT * FROM Produto WHERE idProduto = idProduto";
 			
 			ResultSet result  = DB.executarQuery(query);

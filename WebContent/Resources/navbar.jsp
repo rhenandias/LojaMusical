@@ -21,7 +21,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top" style="font-size: 0.9rem">
 	<div class="container-fluid">
-   	    <a class="navbar-brand" href="#">
+   	    <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
       		<img src="${pageContext.request.contextPath}/Resources/Images/logo_navbar_2.png" alt="Logo Site" width="150">
    		</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +108,7 @@
 				<li class="nav-item">
 					<div class="d-flex align-items-center">
 			   			<i class="bi bi-cart" style="font-size: 2rem; color: white;"></i>
-			 			<a class="nav-link" href="#">Carrinho</a>
+			 			<a class="nav-link" href="${pageContext.request.contextPath}/carrinho">Carrinho</a>
 			 		</div>
 		  		</li>
 		  		
