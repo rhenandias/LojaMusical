@@ -30,7 +30,7 @@
         		<li class="nav-item">
 	        		<div class="d-flex align-items-center">
 	          			<i class="bi bi-box-arrow-in-up-right" style="font-size: 1rem; color: white;"></i>
-	          			<a class="nav-link active" aria-current="page" href="../home">Voltar para a Loja</a>
+	          			<a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Voltar para a Loja</a>
 	        		</div>
         		</li>
       		</ul>
