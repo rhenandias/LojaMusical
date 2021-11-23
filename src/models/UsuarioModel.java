@@ -16,6 +16,7 @@ public class UsuarioModel {
 	private String cidade;
 	private String estado;
 	
+	
 	public int getIdUsuario() {
 		return idUsuario;
 	}
