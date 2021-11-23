@@ -13,7 +13,7 @@ import models.CategoriaModel;
 
 /**
  * 
- * @author Rhenan, samuel e joão
+ * @author Rhenan, samuel e joï¿½o
  * 
  * 
  * @param = {listar; id_da_categoria}
@@ -35,7 +35,8 @@ public class CategoriaController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String action = uri.substring(uri.lastIndexOf("/") + 1);
 		
-		response.setContentType("application/json");
+		// response.setContentType("application/json");
+		
 		switch(action) {
 		case "listar":
 			CategoriaModel categoria = new CategoriaModel();

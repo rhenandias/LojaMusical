@@ -63,7 +63,7 @@
 					    <tr>
 					      <th scope="col">Produto</th>
 					      <th scope="col">Preço Unitário</th>
-					      <th scope="col">Quantidade</th>
+					      <th scope="col" class="text-center">Quantidade</th>
 					      <th scope="col">Preço Total</th>
 					      <th scope="col" class="text-center">Excluir</th>
 					    </tr>
@@ -103,16 +103,24 @@
 		      		</div>
 		      	  </td>
 			      <td>
-				      <div class="d-flex flex-row">
-						<i class="bi bi-dash-lg"></i>
+				      <div class="d-flex flex-column justify-content-center align-items-center">
 						<form>
 							<div class="row">
-								<div class="col">
-								   <input type="number" min="1" class="form-control col-1" placeholder=\${produto.quantidade}>
+								<!-- 
+								<div class="col-1">
+									<i class="bi bi-dash-lg"></i>
 								</div>
+								-->
+								<div class"col-1">
+								   <input type="number" min="1" class="form-control" placeholder=\${produto.quantidade}>
+								</div>
+								<!--								
+								<div class="col-1">
+									<i class="bi bi-plus-lg"></i>
+								</div>
+								-->
 							</div>
 						</form>
-						<i class="bi bi-plus-lg"></i>
 						</div>
 		      	  </td>
 		      	  <td>

@@ -9,31 +9,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class BuscaController
- */
-@WebServlet("/busca")
+import models.BuscaModel;
+import models.ProdutoModel;
+
+@WebServlet("/busca/*")
 public class BuscaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public BuscaController() {
         super();
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher tagFile = getServletContext().getRequestDispatcher("/View/busca.jsp");
-		tagFile.forward(request, response);
+		String uri = request.getRequestURI();
+		String action = uri.substring(uri.lastIndexOf("/") + 1);
+		
+	
+		switch(action) {
+		case "resultados": {
+			RequestDispatcher tagFile = null;
+			tagFile = getServletContext().getRequestDispatcher("/View/busca.jsp");
+			tagFile.forward(request, response);
+		} break;
+		case "buscar": {
+			// Realizar busca e retornar resultados como Json
+			String pesquisa = "";
+			
+			if(request.getParameter("pesquisa") != null) {
+				pesquisa = request.getParameter("pesquisa");
+			}
+			
+			System.out.println("Recebendo como parametro de busca: " + pesquisa);
+			
+			BuscaModel busca = new BuscaModel(pesquisa);
+			String resultados = busca.buscar();
+			response.getWriter().write(resultados);
+		} break;
+		default:
+			response.getWriter().write("Outra página");
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
