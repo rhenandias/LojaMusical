@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import database.DB;
+import models.enums.STATUS;
+import services.EnviarEmail;
 
 public class UsuarioModel {
 	private Integer idUsuario;
@@ -63,6 +65,59 @@ public class UsuarioModel {
 	public UsuarioModel() {
 	
 	}
+	/**
+	 * 
+	 * Pega do banco de dados o usuario através o ID passado
+	 * @param idUsuario = Id do usuario
+	 * 
+	 * @throws SQLException = Caso nao exista no banco irá soltar uma exception
+	 */
+	public UsuarioModel(int idUsuario) throws SQLException {
+		this.idUsuario = idUsuario;
+		ResultSet rs = DB.executarQuery("SELECT * FROM `usuario` WHERE idUsuario = " + this.idUsuario);
+		
+		rs.next();
+		
+		this.idNivelUsuario = rs.getInt("idNivelUsuario");
+		this.nome = rs.getString("nome");
+		this.email = rs.getString("email");
+		this.telefone = rs.getString("telefone");
+		this.senha = rs.getString("senha");
+		this.cpf = rs.getString("cpf");
+		this.ativo = rs.getString("ativo").equals("1") ? true : false;
+		this.codigoAtivacao = rs.getString("codigoAtivacao");
+		this.endereco = rs.getString("endereco");
+		this.numero = rs.getString("numero");
+		this.bairro = rs.getString("bairro");
+		this.cidade = rs.getString("cidade");
+		this.estado = rs.getString("estado");
+		
+	}
+	
+	public StatusMethod ativarUsuario(String codigoAtivacao) {
+		StatusMethod statusMethod = new StatusMethod();
+		if (this.ativo) {
+			statusMethod.setStatus(STATUS.INFO);
+			statusMethod.setTitulo("Usuario já estava ativo");
+			statusMethod.setMensagem("Esse usuário já foi ativo anteriormente.");
+			
+			
+		} else if (codigoAtivacao.equals(this.codigoAtivacao)) {
+			ResultSet rs1 = DB.executarQuery("UPDATE `usuario` SET ativo = 1 WHERE idUsuario = " + this.idUsuario, true );
+			
+			this.ativo = true;
+			
+			statusMethod.setStatus(STATUS.SUCCESS);
+			statusMethod.setTitulo("Ativado com sucesso!!");
+			statusMethod.setMensagem("Sua conta foi ativada com sucesso!!");
+		} else {
+			statusMethod.setStatus(STATUS.ERROR);
+			statusMethod.setTitulo("Código inválido");
+			statusMethod.setMensagem("O código passado está inválido");
+		}
+		
+		return statusMethod;
+	}
 	
 	public boolean existCadastro() {
 		ResultSet rs1 = DB.executarQuery("SELECT `usuario`.`idUsuario` FROM `lojamusical`.`usuario` WHERE `email` = '"+  this.email + "'");
@@ -78,10 +133,51 @@ public class UsuarioModel {
 		return false;
 	}
 	
+	public void gerarCodigoAtivacao() {
+		/**
+		 * i = Tamanho do codigo
+		 */
+		int i = 10;
+		String theAlphaNumericS;
+        StringBuilder builder;
+        
+        theAlphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                    + "0123456789"; 
+
+        //create the StringBuffer
+        builder = new StringBuilder(i); 
+
+        for (int m = 0; m < i; m++) { 
+
+            // generate numeric
+            int myindex 
+                = (int)(theAlphaNumericS.length() 
+                        * Math.random()); 
+
+            // add the characters
+            builder.append(theAlphaNumericS 
+                        .charAt(myindex)); 
+        } 
+
+         String codigo = builder.toString();
+         
+         String queryUpdate = "UPDATE `usuario` SET codigoAtivacao = '" + codigo + "' WHERE idUsuario = " + this.idUsuario;
+         
+         ResultSet rs = DB.executarQuery(queryUpdate, true);
+         
+         this.codigoAtivacao = codigo;
+	}
+	
+	public void enviarEmailDeAtivacao() {
+		String link = "http://localhost:8080/LojaMusical/AtivacaoConta?id=" + this.idUsuario + "&codigo=" + this.codigoAtivacao;
+		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativação da conta", link);
+	}
+	
 	public boolean cadastrarNoBanco() throws SQLException {
 		
 		
-		String queryInsert = "INSERT INTO `lojamusical`.`usuario`\r\n" + 
+		
+		String queryInsert = "INSERT INTO `usuario`\r\n" + 
 					"		(`idUsuario`,\r\n" + 
 					"		`idNivelUsuario`,\r\n" + 
 					"		`nome`,\r\n" + 
@@ -120,7 +216,8 @@ public class UsuarioModel {
 		Integer id = rs.getInt(1);
 		this.idUsuario = id;
 			
-		
+		gerarCodigoAtivacao();
+		enviarEmailDeAtivacao();
 		return true;
 		
 		
