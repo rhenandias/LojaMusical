@@ -60,7 +60,49 @@
 <body>
 	<%@include file="/Resources/navbarSimples.jsp" %>
 	
+	<%
+	String status = "";
+	String statusTitulo = "";
+	String statusTexto = "";
+	try {
+		status = request.getAttribute("status").toString();
+		statusTitulo = request.getAttribute("statusTitulo").toString();
+		statusTexto = request.getAttribute("statusTexto").toString();
+	} catch(Exception e) {
+		status = "";
+		statusTitulo = "";
+		statusTexto = "";
+	}
+	if (status == null) {
+		status = "";
+	}
+	String nameAlert = null;
+	switch (status) {
+		case "error":
+			nameAlert = "danger";
+			break;
+		case "":
+			nameAlert = null;
+			break;
+		case "success":
+			nameAlert = "success";
+			break;
+	}
+	%>
+	<% if (nameAlert != null) { %>
+	<div class="container alert alert-<%out.write(nameAlert); %>" role="alert">
+		  <h4 class="alert-heading"><%out.write(statusTitulo);%></h4>
+		  	<p></p>
+		  <hr>
+		  <p class="mb-0"><%out.write(statusTexto); %></p>
+	</div>
+	
+	<% } %>
+	
+		
 	<div class="container-fluid fundo">
+	
+		
 		<div class="card center-vertically">
  
 			<div class="card-body cadastrar-card">
@@ -78,51 +120,52 @@
 						</div>
 					</div>
 					
-					<form class="form">
+					<form class="form" method="POST">
+						<input name="action" value="cadastrar" hidden>
 						<div class="row g-3 form-line">
 						  	<div class="col-sm">
 					  			<label class="form-label">Email</label>
-						    	<input type="email" class="form-control form-control-sm" placeholder="Email">
+						    	<input type="email" name="email" class="form-control form-control-sm" placeholder="Email">
 						  	</div>
 						  	<div class="col-sm">
 					  			<label class="form-label">Senha</label>
-						    	<input type="password" class="form-control form-control-sm" placeholder="Senha">
+						    	<input type="password" name="senha" class="form-control form-control-sm" placeholder="Senha">
 						  	</div>
 						</div>
 						<div class="row g-3 form-line">
 					  		<div class="col-sm">
 					  			<label class="form-label">Nome Completo</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="Nome Completo">
+						    	<input type="text" name="nome_completo" class="form-control form-control-sm" placeholder="Nome Completo">
 						  	</div>
 						</div>
 						<div class="row g-3 form-line">
 					  		<div class="col-sm">
 					  			<label class="form-label">CPF</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="CPF">
+						    	<input type="text" name="cpf" class="form-control form-control-sm" placeholder="CPF">
 						  	</div>
 						  	<div class="col-sm">
 					  			<label class="form-label">Telefone</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="Telefone">
+						    	<input type="text" name="telefone" class="form-control form-control-sm" placeholder="Telefone">
 						  	</div>
 						</div>
 						<div class="row g-3 form-line">
 					  		<div class="col-sm">
 					  			<label class="form-label">Endereço</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="Endereço">
+						    	<input type="text" name="endereco" class="form-control form-control-sm" placeholder="Endereço">
 						  	</div>
 						  	<div class="col-sm-4">
 					  			<label class="form-label">Número</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="Número">
+						    	<input type="text" name="numero" class="form-control form-control-sm" placeholder="Número">
 						  	</div>
 						</div>
 						<div class="row g-3 form-line">
 					  		<div class="col-sm">
 					  			<label class="form-label">Bairro</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="Bairro">
+						    	<input type="text" name="bairro" class="form-control form-control-sm" placeholder="Bairro">
 						  	</div>
 						  	<div class="col-sm-4">
 					  			<label class="form-label">Cidade</label>
-						    	<input type="text" class="form-control form-control-sm" placeholder="Cidade">
+						    	<input type="text" name="cidade" class="form-control form-control-sm" placeholder="Cidade">
 						  	</div>
 						  	<div class="col-sm-4">
 				  				<label class="form-label" for="uf">Estado</label>
@@ -161,7 +204,7 @@
 						<div class="mx-2">
 							<div class="row g-3 mt-3">
 								<div class="d-grid gap-3">
-		  							<button class="btn btn-primary" type="button">Cadastrar</button>
+		  							<button class="btn btn-primary" type="submit">Cadastrar</button>
 								</div>
 							</div>
 						</div>
