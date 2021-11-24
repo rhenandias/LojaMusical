@@ -67,6 +67,8 @@
 <body>
 	<%@include file="/Resources/navbarSimples.jsp" %>
 	
+	<%@include file="/Resources/alertStatusMethod.jsp" %>
+	
 	<div class="container-fluid fundo">
 		<div class="card center-vertically">
  
@@ -85,7 +87,7 @@
 						</div>
 					</div>
 					
-					<form class="form">
+					<form class="form" method="POST" >
 						<input class="form-control" name="action" value="login" hidden>
 						<div class="row g-3 form-line">
 						  	<div class="col-sm">
@@ -104,7 +106,7 @@
 						<div class="mx-2">
 							<div class="row g-3 mt-3">
 								<div class="d-grid gap-3">
-		  							<button class="btn btn-primary" name="login" type="button">Login</button>
+		  							<button class="btn btn-primary" name="login" type="submit">Login</button>
 								</div>
 							</div>
 						</div>

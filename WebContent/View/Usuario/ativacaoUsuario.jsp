@@ -60,45 +60,7 @@
 <body>
 	<%@include file="/Resources/navbarSimples.jsp" %>
 	
-	<%
-	String status = "";
-	String statusTitulo = "";
-	String statusTexto = "";
-	try {
-		status = request.getAttribute("status").toString().replaceAll("\\P{Print}","");
-		statusTitulo = request.getAttribute("statusTitulo").toString();
-		statusTexto = request.getAttribute("statusTexto").toString();
-	} catch(Exception e) {
-		status = "";
-		statusTitulo = "";
-		statusTexto = "";
-	}
-	if (status == null) {
-		status = "";
-	}
-	String nameAlert = "";
-	switch (status) {
-		case "error":
-			nameAlert = "danger";
-			break;
-		case "":
-			nameAlert = "";
-			break;
-		case "success":
-			nameAlert = "success";
-			break;
-		default:
-			nameAlert = "primary";
-			break;
-	}
-	%>
-	<% %>
-	<div class="container alert alert-<%out.write(nameAlert); %>" role="alert">
-		  <h4 class="alert-heading"><%out.write(statusTitulo);%></h4>
-		  	<p></p>
-		  <hr>
-		  <p class="mb-0"><%out.write(statusTexto); %></p>
-	</div>
+	<%@include file="/Resources/alertStatusMethod.jsp" %>
 	
 	<%%>
 	
