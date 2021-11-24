@@ -27,8 +27,7 @@ public class BuscaController extends HttpServlet {
 	
 		switch(action) {
 		case "resultados": {
-			RequestDispatcher tagFile = null;
-			tagFile = getServletContext().getRequestDispatcher("/View/busca.jsp");
+			RequestDispatcher tagFile = getServletContext().getRequestDispatcher("/View/busca.jsp");
 			tagFile.forward(request, response);
 		} break;
 		case "buscar": {
@@ -51,7 +50,9 @@ public class BuscaController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		request.setAttribute("pesquisa", request.getParameter("pesquisa"));
+		RequestDispatcher tagFile = getServletContext().getRequestDispatcher("/View/busca.jsp");
+		tagFile.forward(request, response);
 	}
 
 }

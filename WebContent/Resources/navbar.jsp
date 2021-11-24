@@ -11,7 +11,19 @@
  	#buscar-produtos-form {
  		width: 380px !important;
 	}
+	
+	.classe-submit:hover {
+		cursor: pointer
+	}
 </style>
+
+<script>
+	$().ready(function (){
+		$(".classe-submit").click(function () {
+			$("#form-busca").submit();	
+		});
+	})
+</script>
 
 <%
 	// Definir aqui se o usuário está logado e qual o tipo de usuario
@@ -54,10 +66,10 @@
       		</ul>
       		
       		<div class="navbar-nav me-auto mb-2 mb-lg-0">
-			    <form>
+			    <form id="form-busca" method="GET" action="${pageContext.request.contextPath}/busca/resultados">
 			    	<div class="input-group">
-	       				<input class="form-control-sm" type="text" placeholder="Buscar Produtos" id="buscar-produtos-form">
-	       				<div class="input-group-text" >
+	       				<input class="form-control-sm" type="text" placeholder="Buscar Produtos" id="buscar-produtos-form" name="pesquisa">
+	       				<div class="input-group-text classe-submit" >
 	       					<i class="bi bi-search" style="font-size: 1rem; color: black;"></i>
 	       				</div>
 			    	</div>
