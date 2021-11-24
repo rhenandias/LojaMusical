@@ -67,14 +67,14 @@ public class UsuarioModel {
 	}
 	/**
 	 * 
-	 * Pega do banco de dados o usuario através o ID passado
+	 * Pega do banco de dados o usuario atravï¿½s o ID passado
 	 * @param idUsuario = Id do usuario
 	 * 
-	 * @throws SQLException = Caso nao exista no banco irá soltar uma exception
+	 * @throws SQLException = Caso nao exista no banco irï¿½ soltar uma exception
 	 */
 	public UsuarioModel(int idUsuario) throws SQLException {
 		this.idUsuario = idUsuario;
-		ResultSet rs = DB.executarQuery("SELECT * FROM `usuario` WHERE idUsuario = " + this.idUsuario);
+		ResultSet rs = DB.executarQuery("SELECT * FROM `Usuario` WHERE idUsuario = " + this.idUsuario);
 		
 		rs.next();
 		
@@ -99,12 +99,12 @@ public class UsuarioModel {
 		StatusMethod statusMethod = new StatusMethod();
 		if (this.ativo) {
 			statusMethod.setStatus(STATUS.INFO);
-			statusMethod.setTitulo("Usuario já estava ativo");
-			statusMethod.setMensagem("Esse usuário já foi ativo anteriormente.");
+			statusMethod.setTitulo("Usuario jï¿½ estava ativo");
+			statusMethod.setMensagem("Esse usuï¿½rio jï¿½ foi ativo anteriormente.");
 			
 			
 		} else if (codigoAtivacao.equals(this.codigoAtivacao)) {
-			ResultSet rs1 = DB.executarQuery("UPDATE `usuario` SET ativo = 1 WHERE idUsuario = " + this.idUsuario, true );
+			ResultSet rs1 = DB.executarQuery("UPDATE `Usuario` SET ativo = 1 WHERE idUsuario = " + this.idUsuario, true );
 			
 			this.ativo = true;
 			
@@ -113,15 +113,15 @@ public class UsuarioModel {
 			statusMethod.setMensagem("Sua conta foi ativada com sucesso!!");
 		} else {
 			statusMethod.setStatus(STATUS.ERROR);
-			statusMethod.setTitulo("Código inválido");
-			statusMethod.setMensagem("O código passado está inválido");
+			statusMethod.setTitulo("Cï¿½digo invï¿½lido");
+			statusMethod.setMensagem("O cï¿½digo passado estï¿½ invï¿½lido");
 		}
 		
 		return statusMethod;
 	}
 	
 	public boolean existCadastro() {
-		ResultSet rs1 = DB.executarQuery("SELECT `usuario`.`idUsuario` FROM `lojamusical`.`usuario` WHERE `email` = '"+  this.email + "'");
+		ResultSet rs1 = DB.executarQuery("SELECT `Usuario`.`idUsuario` FROM `LojaMusical`.`Usuario` WHERE `email` = '"+  this.email + "'");
 		
 		try {
 			if (rs1.next()) {
@@ -162,7 +162,7 @@ public class UsuarioModel {
 
          String codigo = builder.toString();
          
-         String queryUpdate = "UPDATE `usuario` SET codigoAtivacao = '" + codigo + "' WHERE idUsuario = " + this.idUsuario;
+         String queryUpdate = "UPDATE `Usuario` SET codigoAtivacao = '" + codigo + "' WHERE idUsuario = " + this.idUsuario;
          
          ResultSet rs = DB.executarQuery(queryUpdate, true);
          
@@ -171,14 +171,13 @@ public class UsuarioModel {
 	
 	public void enviarEmailDeAtivacao() {
 		String link = "http://localhost:8080/LojaMusical/AtivacaoConta?id=" + this.idUsuario + "&codigo=" + this.codigoAtivacao;
-		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativação da conta", link);
+		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativaï¿½ï¿½o da conta", link);
 	}
 	
 	public boolean cadastrarNoBanco() throws SQLException {
 		
 		
-		
-		String queryInsert = "INSERT INTO `usuario`\r\n" + 
+		String queryInsert = "INSERT INTO `Usuario`\r\n" + 
 					"		(`idUsuario`,\r\n" + 
 					"		`idNivelUsuario`,\r\n" + 
 					"		`nome`,\r\n" + 
@@ -228,7 +227,6 @@ public class UsuarioModel {
 		if (this.idUsuario == null) {
 			return false;
 		}
-		
 		
 		return true;
 	}
