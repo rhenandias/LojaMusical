@@ -15,8 +15,15 @@
 
 <%
 	// Definir aqui se o usuário está logado e qual o tipo de usuario
-	boolean logado = false;
+	boolean logado = session.getAttribute("idUsuario") != null ? true : false;
 	boolean administrador = false;
+	
+	if (logado) {
+		String idNivelUsuario = session.getAttribute("idNivelUsuario").toString();
+		if ( idNivelUsuario != null) {
+			administrador = Integer.parseInt(idNivelUsuario) == 2 ? true : false;
+		}
+	}
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top" style="font-size: 0.9rem">
@@ -82,7 +89,7 @@
 					    	<i class="bi bi-box" style="font-size: 2rem; color: white;"></i>
 							<div style="font-size: 0.8rem">
 								<a class="nav-link" style="line-height: 0.3rem" href="#">Meus Pedidos</a>
-								<a class="nav-link" style="line-height: 0.3rem" href="#">Sair</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/usuario/sair">Sair</a>
 							</div>
 						</div>
 					</li>	
@@ -95,7 +102,7 @@
 					    	<i class="bi bi-gear" style="font-size: 2rem; color: white;"></i>
 							<div style="font-size: 0.8rem">
 								<a class="nav-link" style="line-height: 0.3rem" href="#">Painel da Loja</a>
-								<a class="nav-link" style="line-height: 0.3rem" href="#">Sair</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/usuario/sair">Sair</a>
 							</div>
 						</div>
 					</li>	
