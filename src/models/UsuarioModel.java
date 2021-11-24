@@ -94,6 +94,7 @@ public class UsuarioModel {
 		
 	}
 	
+	
 	public StatusMethod ativarUsuario(String codigoAtivacao) {
 		StatusMethod statusMethod = new StatusMethod();
 		if (this.ativo) {
