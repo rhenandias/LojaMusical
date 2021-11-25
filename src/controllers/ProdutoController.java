@@ -30,6 +30,10 @@ public class ProdutoController extends HttpServlet {
 		
 		switch(action) {
 		case "listar": {
+
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
 			String idCategoria = "";
 			String limit = "";
 			
@@ -43,6 +47,7 @@ public class ProdutoController extends HttpServlet {
 			
 			ProdutoModel produto = new ProdutoModel();
 			String produtos = produto.listar(idCategoria, limit);
+			
 			response.getWriter().write(produtos);
 		} break;
 		case "teste": {

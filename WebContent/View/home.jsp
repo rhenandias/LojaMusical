@@ -22,11 +22,14 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$.get("categoria/listar", function(responseText){
+		// Lista as categorias existentes
+		$.get("categoria/listar", function(responseCategorias){
 		
-			const categorias = JSON.parse(responseText);
+			const categorias = JSON.parse(responseCategorias);
 			
+			// Percorre cada uma das categorias e lista alguns produtos de cada uma delas
 			for(const i in categorias){
+				// Dados da categoria atual
 				const nomeCategoria = categorias[parseInt(i).toString()]["nome"];
 				const idCategoria = categorias[parseInt(i).toString()]["idCategoria"];
 				
@@ -36,48 +39,19 @@
 					url: "produto/listar",
 					data: {
 						idCategoria: idCategoria,
-						limit: 2
+						limit: 4
 					},
-					success: function(response){
-						console.log("Produtos adquiridos");
+					success: function(responseProdutos){
+						// Executa parse na resposta para JSON
+						const produtosJson = JSON.parse(responseProdutos);
 						
-						// Objeto de produtos temporário para construção do Frontend
-						// Na aplicação final obter do banco de dados os primeiros produtos de cada categoria
-						const produtos = [
-							{
-								"idProduto": 0,
-								"nome": "Violão de Estudos",
-								"marca": "Tagima",
-								"preco": 259.99,
-								"quantidade": 1,
-								"imagem": "produto_0.png"
-							},
-							{					
-								"idProduto": 1,
-								"nome": "Violão Cordas de Aço",
-								"marca": "Yamaha",
-								"preco": 348.99,
-								"quantidade": 1,
-								"imagem": "produto_1.png"
-							},
-							{				
-								"idProduto": 2,
-								"nome": "Violão Elétrico",
-								"marca": "Casio",
-								"preco": 599.99,
-								"quantidade": 0,
-								"imagem": "produto_2.png"
-							},
-							{				
-								"idProduto": 3,
-								"nome": "Violão Diferente ",
-								"marca": "Casio",
-								"preco": 159.99,
-								"quantidade": 1,
-								"imagem": "produto_3.png"
-							}
-						];
+						// Transformar a resposa em um iterable
+						let produtos = [];
 						
+						for(const idx in produtosJson){
+							produtos.push(produtosJson[idx]);
+						}
+												
 						const idLinha = `categoria-div-\${idCategoria}`;
 						
 						// Constroi a linha da categoria
@@ -107,7 +81,6 @@
 						// Cria os cards de produtos
 						for(const produto of produtos){
 							const fotoUrl = "${pageContext.request.contextPath}/FotosProdutos/" + produto.imagem;
-							console.log(fotoUrl);
 							
 							let cardProduto = `
 								<div class="card" style="width: 18rem;">

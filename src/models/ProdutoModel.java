@@ -3,6 +3,8 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.google.gson.JsonObject;
+
 import database.DB;
 
 public class ProdutoModel {
@@ -33,20 +35,31 @@ public class ProdutoModel {
 
 	// Listar produtos com parâmetros de categoria e limite (utilizado na tela inicial)
 	public String listar(String idCategoria, String limit) {
-		String query = "SELECT * FROM Produto WHERE idCategoria = " + idCategoria +  " limit " + limit;
-		
-		ResultSet result  = DB.executarQuery(query);
+		ResultSet query = DB.executarQuery("SELECT * FROM Produto WHERE idCategoria = " + idCategoria +  " limit " + limit);
+				
+		JsonObject json = new JsonObject();
 		
 		try {
-			while(result.next()) {
-				System.out.println(result.getString("nome"));
+			int i = 0;
+			
+			while(query.next()) {
+				JsonObject innerObject = new JsonObject();
+				
+				innerObject.addProperty("idCategoria", query.getString("idProduto"));
+				innerObject.addProperty("nome", query.getString("nome"));
+				innerObject.addProperty("preco", query.getString("preco"));
+				innerObject.addProperty("quantidade", query.getString("quantidade"));
+				innerObject.addProperty("imagem", query.getString("imagem"));
+				
+				json.add(Integer.toString(i), innerObject);
+				
+				i++;
 			}
-		}
-		catch(SQLException e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return "";
+		return json.toString();
 	}
 	
 	// Listar produtos por idProduto (utilizado na página de cada produto)
@@ -57,7 +70,7 @@ public class ProdutoModel {
 			
 			try {
 				while(result.next()) {
-					System.out.println(result.getString("nome"));
+					System.out.println("Lendo produto:" + result.getString("nome"));
 				}
 			}
 			catch(SQLException e) {
