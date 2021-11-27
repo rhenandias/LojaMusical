@@ -19,7 +19,6 @@ public class BuscaModel {
 	}
 	
 	public String buscar() {
-		System.out.println("Query: " + "SELECT * FROM Produto where nome like '%" + this.getPesquisa() +"%'");
 		ResultSet result  = DB.executarQuery("SELECT * FROM Produto where nome like '%" + this.getPesquisa() +"%'");
 		
 		JsonObject json = new JsonObject();

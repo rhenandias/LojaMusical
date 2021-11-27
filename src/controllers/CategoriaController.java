@@ -36,8 +36,6 @@ public class CategoriaController extends HttpServlet {
 		String action = uri.substring(uri.lastIndexOf("/") + 1);
 		RequestDispatcher tagFile = null;
 		
-		// response.setContentType("application/json");
-		
 		switch(action) {
 		case "listar":
 			CategoriaModel categoria = new CategoriaModel();

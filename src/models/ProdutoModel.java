@@ -17,10 +17,16 @@ public class ProdutoModel {
 	private Double custo;
 	private int quantidade;
 	private String imagem;
+	private String descricao;
 	
 	public ProdutoModel() { }
 	
-	public ProdutoModel(int idProduto, int idCategoria, int idFornecedor, String nome, String marca, Double preco, Double custo, int quantidade, String imagem) {
+	public ProdutoModel(String idProduto) {
+		super();
+		this.setIdProduto(Integer.parseInt(idProduto));
+	}
+	
+	public ProdutoModel(int idProduto, int idCategoria, int idFornecedor, String nome, String marca, Double preco, Double custo, int quantidade, String imagem, String descricao) {
 		super();
 		this.idProduto = idProduto;
 		this.idCategoria = idCategoria;
@@ -31,6 +37,7 @@ public class ProdutoModel {
 		this.custo = custo;
 		this.quantidade = quantidade;
 		this.imagem = imagem;
+		this.descricao = descricao;
 	}
 
 	// Listar produtos com parâmetros de categoria e limite (utilizado na tela inicial)
@@ -45,9 +52,10 @@ public class ProdutoModel {
 			while(query.next()) {
 				JsonObject innerObject = new JsonObject();
 				
-				innerObject.addProperty("idCategoria", query.getString("idProduto"));
+				innerObject.addProperty("idProduto", query.getString("idProduto"));
 				innerObject.addProperty("nome", query.getString("nome"));
 				innerObject.addProperty("preco", query.getString("preco"));
+				innerObject.addProperty("marca", query.getString("marca"));
 				innerObject.addProperty("quantidade", query.getString("quantidade"));
 				innerObject.addProperty("imagem", query.getString("imagem"));
 				
@@ -62,23 +70,30 @@ public class ProdutoModel {
 		return json.toString();
 	}
 	
-	// Listar produtos por idProduto (utilizado na página de cada produto)
-		public String listar(String idProduto) {
-			String query = "SELECT * FROM Produto WHERE idProduto = idProduto";
-			
-			ResultSet result  = DB.executarQuery(query);
-			
-			try {
-				while(result.next()) {
-					System.out.println("Lendo produto:" + result.getString("nome"));
-				}
+	// Listar produto por idProduto, retorna apenas um produto se encontrado
+	public String ler() {
+		ResultSet result  = DB.executarQuery("SELECT * FROM Produto where idProduto = " + Integer.toString(this.getIdProduto()));
+		
+		JsonObject json = new JsonObject();
+		
+		try {
+			if(result.next()) {
+				json.addProperty("idProduto", result.getString("idProduto"));
+				json.addProperty("nome", result.getString("nome"));
+				json.addProperty("marca", result.getString("marca"));
+				json.addProperty("preco", result.getString("preco"));
+				json.addProperty("quantidade", result.getString("quantidade"));
+				json.addProperty("imagem", result.getString("imagem"));
+				json.addProperty("descricao", result.getString("descricao"));
+			} else {
+				json.addProperty("erro", "Nenhum produto encontrado");
 			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-			
-			return "";
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
+		
+		return json.toString();
+	}
 	
 	public String listar() {
 		return "";
@@ -154,5 +169,13 @@ public class ProdutoModel {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 }

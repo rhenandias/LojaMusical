@@ -10,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.BuscaModel;
 import models.CategoriaModel;
 import models.ProdutoModel;
 
-/**
- * Servlet implementation class ProdutoController
- */
 @WebServlet("/produto/*")
 public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +28,8 @@ public class ProdutoController extends HttpServlet {
 		
 		switch(action) {
 		case "listar": {
-
+			// Busca produtos e retorna resposta como JSON
+			
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			
@@ -50,21 +49,32 @@ public class ProdutoController extends HttpServlet {
 			
 			response.getWriter().write(produtos);
 		} break;
-		case "teste": {
+		case "info": {
+			// Exibir tela de informação de produto
 			RequestDispatcher tagFile = null;
 			tagFile = getServletContext().getRequestDispatcher("/View/produto.jsp");
 			tagFile.forward(request, response);
+		} break;
+		case "buscar": {
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			String id = "";
+			
+			if(request.getParameter("id") != null) {
+				id = request.getParameter("id");
+			}
+						
+			ProdutoModel produto = new ProdutoModel(id);
+			String resultados = produto.ler();
+			response.getWriter().write(resultados);
 		} break;
 		default:
 			response.getWriter().write("Outra página");
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

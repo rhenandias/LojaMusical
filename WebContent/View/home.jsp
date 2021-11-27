@@ -81,11 +81,13 @@
 						// Cria os cards de produtos
 						for(const produto of produtos){
 							const fotoUrl = "${pageContext.request.contextPath}/FotosProdutos/" + produto.imagem;
+							const produtoUrl = "${pageContext.request.contextPath}/produto/info?id=" + produto.idProduto;
 							
 							let cardProduto = `
 								<div class="card" style="width: 18rem;">
 								  <img src=\${fotoUrl} class="card-img-top" alt="Imagem do Produto" width="100px">
 								  <div class="card-body">
+								  	<a href=\${produtoUrl} class="stretched-link"></a>
 								    <div>
 								    	<h5 class="card-title">\${produto.nome}</h5>
 								    	<h6 class="card-subtitle mb-2 text-muted">\${produto.marca}</h6>

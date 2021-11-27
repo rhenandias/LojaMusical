@@ -27,11 +27,16 @@ public class BuscaController extends HttpServlet {
 	
 		switch(action) {
 		case "resultados": {
+			// Exibir a página de resultados de busca
 			RequestDispatcher tagFile = getServletContext().getRequestDispatcher("/View/busca.jsp");
 			tagFile.forward(request, response);
 		} break;
 		case "buscar": {
 			// Realizar busca e retornar resultados como Json
+
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
 			String pesquisa = "";
 			
 			if(request.getParameter("pesquisa") != null) {
