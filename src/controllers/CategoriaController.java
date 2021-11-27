@@ -38,13 +38,35 @@ public class CategoriaController extends HttpServlet {
 		
 		switch(action) {
 		case "listar":
-			CategoriaModel categoria = new CategoriaModel();
-			String categorias = categoria.listar();
+			// Listar categorias e retornar como JSON
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(categorias);
+			
+			// Model da categoria
+			CategoriaModel categoria;
+			
+			// Verifica se foi solicitado listagem de uma categoria específica ou uma listagem geral
+			
+			if(request.getParameter("id") != null) {
+				// Solicitado listagem de uma categoria específica
+				String 	id = request.getParameter("id");
+				categoria = new CategoriaModel(id);
+				String resultado = categoria.ler();
+				response.getWriter().write(resultado);
+				
+			} else {
+				// Solicitado listagem geral de categorias
+				categoria = new CategoriaModel();
+				String resultado = categoria.listar();
+				response.getWriter().write(resultado);
+			}
 			
 			break;
+		case "info": {
+			// Exibir tela de informação de categoria
+			tagFile = getServletContext().getRequestDispatcher("/View/categoria.jsp");
+			tagFile.forward(request, response);
+		} break;
 		default:
 			response.getWriter().write("Outra página");
 		}
