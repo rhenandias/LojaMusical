@@ -18,9 +18,41 @@
 </style>
 
 <script>
+	// Submit do Formd e Busca
 	$().ready(function (){
 		$(".classe-submit").click(function () {
 			$("#form-busca").submit();	
+		});
+	})
+	
+	// Preenchimento dinamico do Dropdown de categorias
+	$().ready(function (){
+
+		// Realiza listagem das categorias existentes
+		$.ajax({
+			type: "GET",
+			url: "categoria/listar",
+			contentType: "application/json; charset=utf-8",
+			success: function(response){
+				const categorias = JSON.parse(response);
+				
+				// Montar o dropdown
+				for(const idx in categorias){
+					const categoria = categorias[idx];
+					
+					// Monta URL alvo da categoria
+					let categoriaUrl = "${pageContext.request.contextPath}/categoria/info?id=" + categoria.idCategoria;
+					
+					// Monta list item
+					let dropdownLi = `
+						<li><a class="dropdown-item" href=\${categoriaUrl} >\${categoria.nome}</a></li>
+					`;
+					
+					// Adiciona list item
+					$("#drop-categorias").append(dropdownLi);
+					
+				}
+			}
 		});
 	})
 </script>
@@ -56,11 +88,7 @@
           			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             			Categorias
           			</a>
-		          	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-			            <li><a class="dropdown-item" href="#">Violão</a></li>
-			            <li><a class="dropdown-item" href="#">Guitarra</a></li>
-			            <li><a class="dropdown-item" href="#">Percursão</a></li>
-			            <li><a class="dropdown-item" href="#">Acessórios</a></li>
+		          	<ul id="drop-categorias" class="dropdown-menu" aria-labelledby="navbarDropdown">
 		          	</ul>
         		</li>
       		</ul>
