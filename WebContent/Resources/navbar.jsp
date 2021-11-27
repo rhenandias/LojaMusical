@@ -27,11 +27,13 @@
 	
 	// Preenchimento dinamico do Dropdown de categorias
 	$().ready(function (){
+		
+		const categoriaUrl = "${pageContext.request.contextPath}" + "/categoria/listar";
 
 		// Realiza listagem das categorias existentes
 		$.ajax({
 			type: "GET",
-			url: "categoria/listar",
+			url: categoriaUrl,
 			contentType: "application/json; charset=utf-8",
 			success: function(response){
 				const categorias = JSON.parse(response);
