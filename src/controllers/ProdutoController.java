@@ -34,7 +34,7 @@ public class ProdutoController extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			
 			String idCategoria = "";
-			String limit = "";
+			String limit = "100";
 			
 			if(request.getParameter("idCategoria") != null) {
 				idCategoria = request.getParameter("idCategoria");

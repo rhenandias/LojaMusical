@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `Categoria`;
 CREATE TABLE `Categoria` (
   `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
+  `descricao` text DEFAULT NULL,
   PRIMARY KEY (`idCategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +36,7 @@ CREATE TABLE `Categoria` (
 
 LOCK TABLES `Categoria` WRITE;
 /*!40000 ALTER TABLE `Categoria` DISABLE KEYS */;
-INSERT INTO `Categoria` VALUES (2,'Acessórios'),(3,'Cordas'),(4,'Percursão'),(5,'Sopro'),(6,'Instrumento de Teclas');
+INSERT INTO `Categoria` VALUES (2,'Acessórios','Acessórios de todos os tipos para quem trabalha ou vive no mundo da música!'),(3,'Cordas',NULL),(4,'Percurssão',NULL),(5,'Sopro',NULL),(6,'Instrumento de Teclas',NULL);
 /*!40000 ALTER TABLE `Categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,12 +170,13 @@ CREATE TABLE `Produto` (
   `custo` decimal(10,2) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `imagem` varchar(255) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
   PRIMARY KEY (`idProduto`),
   KEY `fk_idFornecedor` (`idFornecedor`),
   KEY `fk_idCategoria` (`idCategoria`),
   CONSTRAINT `fk_idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `Categoria` (`idCategoria`),
   CONSTRAINT `fk_idFornecedor` FOREIGN KEY (`idFornecedor`) REFERENCES `Fornecedor` (`idFornecedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +185,7 @@ CREATE TABLE `Produto` (
 
 LOCK TABLES `Produto` WRITE;
 /*!40000 ALTER TABLE `Produto` DISABLE KEYS */;
-INSERT INTO `Produto` VALUES (0,3,1,'Violão de Estudos Tagima','Tagima',259.99,159.99,5,''),(1,3,2,'Violão Cordas Metálicas - Yamaha','Yamaha',111.99,222.99,5,''),(2,3,3,'Violão Elétrico - Casio','Casio',200.00,50.00,2,'');
+INSERT INTO `Produto` VALUES (0,3,1,'Violao de Estudos Tagima','Tagima',259.99,159.99,5,'produto_0.png','Violão de estudos, ideal para iniciantes na prática de um instrumento de corda.\n\nPossui cordas de nylon, que facilita o aprendizado inicial, além de possui uma empunhadura confortável.\n\nCorpo do violão em madeira de mogno, resistente a quedas e impactos, além de proporcionar uma excelente acústica. '),(1,3,2,'Violao Cordas Metálicas - Yamaha','Yamaha',111.99,222.99,5,'produto_1.png',NULL),(2,3,3,'Violao Elétrico - Casio','Casio',200.00,50.00,2,'produto_2.png',NULL),(3,6,1,'Teclado Digital Casio','Casio',699.99,299.99,2,'produto_4.png',NULL);
 /*!40000 ALTER TABLE `Produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,7 +237,7 @@ CREATE TABLE `Usuario` (
   PRIMARY KEY (`idUsuario`),
   KEY `fk_idNivelUsuario` (`idNivelUsuario`),
   CONSTRAINT `fk_idNivelUsuario` FOREIGN KEY (`idNivelUsuario`) REFERENCES `NivelUsuario` (`idNivelUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,6 +246,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
+INSERT INTO `Usuario` VALUES (1,1,'Rhenan Dias','diasrhenan@gmail.com','99999999','123123','447654',1,'NUQX6HIXHN','Rua das Ruas','123','Bairro dos Bairros','Cidade das Cidades','null');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,4 +317,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-13 23:28:13
+-- Dump completed on 2021-11-27 13:31:35

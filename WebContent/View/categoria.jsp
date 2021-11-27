@@ -29,7 +29,7 @@
 			let id = parametrosPesquisa.get('id');
 			
 			// Realiza busca pela categoria
-			const categoriaUrl = "";
+			const categoriaUrl = "${pageContext.request.contextPath}" + "/categoria/listar";
 			
 			$.ajax({
 				type: "GET",
@@ -52,8 +52,42 @@
 							categoria.descricao = "Nenhuma descrição disponível";
 						}
 						
+						// Monta cabeçalho da página de categoria
+						const categoriaTitulo = `
+							<div class="container-fluid d-flex flex-column my-2">
+								<div class="container-fluid justify-content-center d-flex flex-row align-items-center my-2 p-0">
+									<div class="divisor-horizontal"></div>
+									<i class="bi bi-music-note" style="font-size: 1rem;" ></i>
+									<i class="bi bi-music-note-beamed" style="font-size: 1rem;" ></i>
+									<div class="mx-3">
+										<h3>\${categoria.nome}</h3>
+									</div>
+									<i class="bi bi-music-note" style="font-size: 1rem;" ></i>
+									<i class="bi bi-music-note-beamed" style="font-size: 1rem;" ></i>
+									<div class="divisor-horizontal"></div>
+								</div>
+								<div>
+									<p class="text-center">\${categoria.descricao}</p>
+								</div>
+							</div>
+						`;
 						
-						$("#card-produto").append(cardProduto);
+						
+						$("#pagina-categoria").append(categoriaTitulo);
+						
+						// Busca por produtos dessa categoria para preencher a paǵina
+						const produtosUrl = "${pageContext.request.contextPath}" + "/produto/listar";
+						
+						$.ajax({
+							type: "GET",
+							url: "produto/listar",
+							data: {
+								idCategoria: idCategoria
+							},
+							success: function(responseProdutos){
+								
+							}
+						});
 					} else {
 						// Categoria não foi encontrada, exibir tela de erro
 						let erro = `
@@ -64,13 +98,11 @@
 							</div>
 						`;
 						
-						$("#card-produto").append(erro);
+						$("#pagina-categoria").append(erro);
 					}
 				}
 			});
 		}
-		
-	
 		
 	});
 </script>
@@ -78,7 +110,7 @@
 	<%@include file="/Resources/navbar.jsp" %>
 	
 	<div class="container-fluid d-flex justify-content-center">
-		<div id="card-produto" class="container-fluid d-flex flex-column justify-content-center p-4">
+		<div id="pagina-categoria" class="container-fluid d-flex flex-column justify-content-center p-4">
 		
 		</div>
 	</div>
