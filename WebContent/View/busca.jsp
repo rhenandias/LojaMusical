@@ -57,7 +57,7 @@
 							    	<div class="my-2">
 								    	<h5 class="card-title">R$\${produto.preco}</h5>
 							    	</div>
-							    	<form class="mt-3">
+							    	<form class="mt-3" style="position: relative; z-index: 10">
 							    		<!-- Verifica se o produto possui quantidade disponível em estoque -->
 							    		\${produto.quantidade > 0 ? 
 							    		`
