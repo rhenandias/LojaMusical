@@ -6,18 +6,57 @@
 
 package multitool;
 
+import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import database.DB;
 
 public class Utilities {
 	
 	public Utilities() {
 	
 	}
+	/**
+	 * 
+	 * @param tamanhoCodigo
+	 * @return String gerada aleatoriamente
+	 */
+	public static String gerarCodigoAleatorio(int tamanhoCodigo) {
+			/**
+			 * i = Tamanho do codigo
+			 */
+			int i = tamanhoCodigo;
+			String theAlphaNumericS;
+	        StringBuilder builder;
+	        
+	        theAlphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	                                    + "0123456789"; 
+
+	        //create the StringBuffer
+	        builder = new StringBuilder(i); 
+
+	        for (int m = 0; m < i; m++) { 
+
+	            // generate numeric
+	            int myindex 
+	                = (int)(theAlphaNumericS.length() 
+	                        * Math.random()); 
+
+	            // add the characters
+	            builder.append(theAlphaNumericS 
+	                        .charAt(myindex)); 
+	        } 
+
+	         String codigo = builder.toString();
+	         
+	         
+	         return codigo;
+	}
 	
 // Métodos de Limpeza de Dados
 	
-	public String  clearSqlInjection( String value ) {
+	public static String  clearSqlInjection( String value ) {
 		// Retirar or 1 = 1 do commando SQL
 		String oneEqualOnePattern = "(\\(*\\)*)*((or)*(Or)*(OR)*(oR)*)*(\\(*\\)*)*(\"*)(\\(*\\)*)*(\\s*)(\\(*\\)*)*(\\'*)(\\(*\\)*)*[0-9]+(\\(*\\)*)*(\\s*)(\\(*\\)*)*(\\'*)(\\(*\\)*)*(\\s*)(\\(*\\)*)*(\"*)(\\(*\\)*)*(\\s*)(\\(*\\)*)*=(\\(*\\)*)*(\"*)(\\(*\\)*)*(\\s*)(\\(*\\)*)*(\\'*)(\\(*\\)*)*[0-9]+(\\(*\\)*)*(\\s*)(\\(*\\)*)*(\\'*)(\\(*\\)*)*(\\s*)(\\(*\\)*)*(\"*)(\\(*\\)*)*(\\s*)(\\(*\\)*)*";
 		String oneEqualOneReplace = "[Sql Injection Attempt]";
@@ -44,11 +83,11 @@ public class Utilities {
 	
 // Métodos Polimórficos (Replace) de Susbstituição utilizando Regex 
 
-	public String replaceAll(String oneEqualOnePattern, String oneEqualOneReplace, String value) {
+	public static String replaceAll(String oneEqualOnePattern, String oneEqualOneReplace, String value) {
 		return( value.replaceAll(oneEqualOnePattern, oneEqualOneReplace) );
 	}
 
-	public String replaceAll( String[] wantedPattern, String replacementPattern, String sourceText) {
+	public static String replaceAll( String[] wantedPattern, String replacementPattern, String sourceText) {
 		String outText = sourceText;
 		for (int i = 0; i < wantedPattern.length; i++) {
 			outText = outText.replaceAll(wantedPattern[i], replacementPattern);
@@ -56,7 +95,7 @@ public class Utilities {
 		return outText ;
 	}	
 	
-	public String replaceAll( String[] wantedPattern, String[] replacementPattern, String sourceText) {
+	public static String replaceAll( String[] wantedPattern, String[] replacementPattern, String sourceText) {
 		String outText = sourceText;
 		for (int i = 0; i < wantedPattern.length; i++) {
 			outText = outText.replaceAll(wantedPattern[i], replacementPattern[i]);
@@ -65,7 +104,7 @@ public class Utilities {
 	}
 
 	
-	public String[] replaceAll( String[] wantedPattern, String replacementPattern, String[] sourceText) {
+	public static String[] replaceAll( String[] wantedPattern, String replacementPattern, String[] sourceText) {
 		for (int i = 0; i < sourceText.length; i++) {
 			for (int j = 0; j < wantedPattern.length; j++) {
 				sourceText[j] = sourceText[j].replaceAll(wantedPattern[i], replacementPattern);
@@ -74,7 +113,7 @@ public class Utilities {
 		return sourceText ;
 	}
 	
-	public String[] replaceAll( String[] wantedPattern, String[] replacementPattern, String[] sourceText) {
+	public static String[] replaceAll( String[] wantedPattern, String[] replacementPattern, String[] sourceText) {
 		for (int i = 0; i < sourceText.length; i++) {
 			for (int j = 0; j < wantedPattern.length; j++) {
 				sourceText[j] = sourceText[j].replaceAll(wantedPattern[i], replacementPattern[i]);
