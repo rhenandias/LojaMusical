@@ -119,7 +119,7 @@ public class ProdutoModel {
 		StatusMethod st = new StatusMethod();
 		
 		if (this.idProduto == null ) {
-			String query = "INSERT INTO `lojamusical`.`produto`\r\n" + 
+			String query = "INSERT INTO `LojaMusical`.`Produto`\r\n" + 
 					"(`idProduto`," + 
 					"`idCategoria`," + 
 					"`idFornecedor`," + 
@@ -156,8 +156,8 @@ public class ProdutoModel {
 			
 		} else {
 			st.setStatus(STATUS.ERROR);
-			st.setTitulo("Produto já cadastrado");
-			st.setMensagem("Este produto já está cadastrado no banco");
+			st.setTitulo("Produto jï¿½ cadastrado");
+			st.setMensagem("Este produto jï¿½ estï¿½ cadastrado no banco");
 		}
 		
 		return st;

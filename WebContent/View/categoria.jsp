@@ -81,16 +81,6 @@
 						const produtosUrl = "${pageContext.request.contextPath}" + "/produto/listar";
 						
 						
-						// Container para os cards de produtos dessa categoria
-						const containerProdutos = `
-							<div id="resultados" class="container-fluid d-flex flex-row justify-content-between">
-							
-							</div>
-						`;
-						
-						// Adiciona o container de resultados a pagina
-						$("#pagina-categoria").append(containerProdutos);
-						
 						$.ajax({
 							type: "GET",
 							url: produtosUrl,
@@ -100,21 +90,36 @@
 							success: function(responseProdutos){
 								const produtosJson = JSON.parse(responseProdutos);
 														
-								// Transformar a resposa em um iterable
-								let produtos = [];
+								let idxTarget = 0;
 								
 								for(const idx in produtosJson){
-									produtos.push(produtosJson[idx]);
-								}
-								
-								for(const produto of produtos){
+									const produto = produtosJson[idx];
+									
+									if(idx % 4 == 0){
+										// Adiciona uma nova linha
+										let novoIdLinha = "resultados_" + idxTarget;
+										
+										// Container para os cards de produtos dessa categoria
+										let containerProdutos = `
+											<div id=\${novoIdLinha} class="container-fluid d-flex flex-row justify-content-between mb-3">
+												
+											</div>
+										`;
+	
+										// Adiciona nova linha a pagina de resultados
+										$("#pagina-categoria").append(containerProdutos);
+										
+										idxTarget++;
+									}
 									
 									// Realiza montagem do card de produto através de componentização
 									const cardProduto = criarCardProduto(produto);
 									
 									// Adiciona o card de produto ao corpo da página
-
-									$("#resultados").append(cardProduto);
+									let alvo = "#resultados_" + (parseInt(idxTarget) - 1);
+									console.log("Alvo:", alvo);
+									
+									$(alvo).append(cardProduto);
 									
 								}
 							}
