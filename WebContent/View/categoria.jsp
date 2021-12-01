@@ -80,6 +80,17 @@
 						// Busca por produtos dessa categoria para preencher a paǵina
 						const produtosUrl = "${pageContext.request.contextPath}" + "/produto/listar";
 						
+						
+						// Container para os cards de produtos dessa categoria
+						const containerProdutos = `
+							<div id="resultados" class="container-fluid d-flex flex-row justify-content-between">
+							
+							</div>
+						`;
+						
+						// Adiciona o container de resultados a pagina
+						$("#pagina-categoria").append(containerProdutos);
+						
 						$.ajax({
 							type: "GET",
 							url: produtosUrl,
@@ -87,11 +98,25 @@
 								idCategoria: categoria.idCategoria
 							},
 							success: function(responseProdutos){
-								const produtos = JSON.parse(responseProdutos);
-								console.log(produtos);
+								const produtosJson = JSON.parse(responseProdutos);
+														
+								// Transformar a resposa em um iterable
+								let produtos = [];
 								
-								// Realiza montagem do card de produto através de componentização
-								const cardProduto = criarCardProduto(produto);
+								for(const idx in produtosJson){
+									produtos.push(produtosJson[idx]);
+								}
+								
+								for(const produto of produtos){
+									
+									// Realiza montagem do card de produto através de componentização
+									const cardProduto = criarCardProduto(produto);
+									
+									// Adiciona o card de produto ao corpo da página
+
+									$("#resultados").append(cardProduto);
+									
+								}
 							}
 						});
 					} else {
