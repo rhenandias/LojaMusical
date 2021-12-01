@@ -36,7 +36,7 @@ CREATE TABLE `Categoria` (
 
 LOCK TABLES `Categoria` WRITE;
 /*!40000 ALTER TABLE `Categoria` DISABLE KEYS */;
-INSERT INTO `Categoria` VALUES (2,'Acessórios','Acessórios de todos os tipos para quem trabalha ou vive no mundo da música!'),(3,'Cordas',NULL),(4,'Percurssão',NULL),(5,'Sopro',NULL),(6,'Instrumento de Teclas',NULL);
+INSERT INTO `Categoria` VALUES (2,'Acessórios','Acessórios de todos os tipos para quem trabalha ou vive no mundo da música!'),(3,'Cordas','Violões, Guitarras, ou Pianos. Aqui você encontra todos os instrumentos de Corda para a sua Banda!'),(4,'Percurssão','Instrumentos para dar o ritmo ideal para o seu grupo e sua apresentação!'),(5,'Sopro','Instrumentos clássicos sopro, faça parte de orquestras com esses instrumentos!'),(6,'Instrumento de Teclas','Seja no teclado, ou na sanfona, os intrumentos de teclas são cada vez mais populares!');
 /*!40000 ALTER TABLE `Categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +176,7 @@ CREATE TABLE `Produto` (
   KEY `fk_idCategoria` (`idCategoria`),
   CONSTRAINT `fk_idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `Categoria` (`idCategoria`),
   CONSTRAINT `fk_idFornecedor` FOREIGN KEY (`idFornecedor`) REFERENCES `Fornecedor` (`idFornecedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +185,7 @@ CREATE TABLE `Produto` (
 
 LOCK TABLES `Produto` WRITE;
 /*!40000 ALTER TABLE `Produto` DISABLE KEYS */;
-INSERT INTO `Produto` VALUES (0,3,1,'Violao de Estudos Tagima','Tagima',259.99,159.99,5,'produto_0.png','Violão de estudos, ideal para iniciantes na prática de um instrumento de corda.\n\nPossui cordas de nylon, que facilita o aprendizado inicial, além de possui uma empunhadura confortável.\n\nCorpo do violão em madeira de mogno, resistente a quedas e impactos, além de proporcionar uma excelente acústica. '),(1,3,2,'Violao Cordas Metálicas - Yamaha','Yamaha',111.99,222.99,5,'produto_1.png',NULL),(2,3,3,'Violao Elétrico - Casio','Casio',200.00,50.00,2,'produto_2.png',NULL),(3,6,1,'Teclado Digital Casio','Casio',699.99,299.99,2,'produto_4.png',NULL);
+INSERT INTO `Produto` VALUES (0,3,1,'Violao de Estudos Tagima','Tagima',259.99,159.99,5,'produto_0.png','Violão de estudos, ideal para iniciantes na prática de um instrumento de corda.\n\nPossui cordas de nylon, que facilita o aprendizado inicial, além de possui uma empunhadura confortável.\n\nCorpo do violão em madeira de mogno, resistente a quedas e impactos, além de proporcionar uma excelente acústica. '),(1,3,2,'Violao Cordas Metálicas - Yamaha','Yamaha',111.99,222.99,5,'produto_1.png',NULL),(2,3,3,'Violao Elétrico - Casio','Casio',200.00,50.00,2,'produto_2.png',NULL),(3,6,1,'Teclado Digital Casio','Casio',699.99,299.99,2,'produto_4.png',NULL),(4,6,3,'Sintetizador 4 Canais','Casio',300.00,200.00,5,'sintetizador_1.png','Sintetizador digital com até quatro canais de som configurável.\r\n\r\nIdeal para performances de música eletrônica.'),(5,6,2,'Escaleta 2 escalas e meia','Yamaha',159.99,100.99,2,'escaleta_1.png','Escaleta com até duas escalas e meia, som Concert e manuseio ergométrico.\r\n\r\nIdeal para música eletrônica e experimental.'),(6,6,1,'Sanfona 120 Baixos','Tagima',499.99,299.99,4,'sanfona_1.png','Sanfona classica de 120 baixos, o ritmo contagiante do forro.\r\n\r\nAcabamento classico na cor preta, com teclas com acabamento e detalhes de marfim.'),(7,6,2,'Piano Digital Classic','Yamaha',1259.99,899.99,3,'piano_digital_1.png','Piano digital Yamaha, um piano classico porem com som digital.'),(8,3,2,'Piano de Calda Deluxe','Yamaha',2900.99,1900.99,2,'piano_calda_1.png','Piano de calda estilo classico, ideal para concertos e estudos de musica erudita.'),(9,2,2,'Microfone Estereo 1 Canal','Yamaha',249.99,149.99,3,'microfone_1.png','Microfone ideal para gravar voz e instrumentos musicais.'),(10,2,3,'Cabo Guitarra P10','Casio',29.99,9.99,4,'cabo_1.png','Cabo P10 estereo com duas saidas.\r\n\r\nIdeal para utilizacao em guitarras eletricas.'),(11,2,1,'Palheta de Guitarra','Tagima',5.99,1.99,10,'palheta_1.png','Palheta de guitarra na cor cinza, estavel e confortavel.'),(12,2,2,'Pedal Distortion Reverb','Yamaha',452.24,254.24,8,'pedal_1.png','Pedal distortion para efeito em guitarra.\r\n\r\nPedal ideal para todas as bandas, com efeito de reverb.'),(13,5,2,'Flauta Transversal Prata','Yamaha',125.66,100.66,9,'flauta_1.png','Flauta transversal cor prateada, afinacao de musica erudita.\r\n\r\nFlauta transversal com 35 teclas.'),(14,5,3,'Clarinete De Madeira ','Casio',1700.99,999.99,8,'clarinete_1.png','Clarinete classico de madeira.\r\n\r\nO instrumento ideal para compor a grupo de madeiras de uma orquestra.'),(15,5,2,'Trompete Dourado','Yamaha',741.65,328.65,9,'trompete_1.png','Trompete estilo dourado para compor os metais da sua banda.'),(16,5,2,'Flauta Doce Infantil','Yamaha',25.99,5.99,20,'flauta_doce_1.png','A famosa flauta doce infantil, o instrumento ideal para despertar o gosto musical nas criancas.');
 /*!40000 ALTER TABLE `Produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -317,4 +317,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-27 13:31:35
+-- Dump completed on 2021-11-30 23:29:46
