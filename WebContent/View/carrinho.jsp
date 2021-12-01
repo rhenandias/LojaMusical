@@ -8,6 +8,7 @@
 <title>Produto</title>
 <%@include file="/Resources/cssBootstrap.jsp" %>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Javascript/produto.js"></script>
 </head>
 <style>
 	.divisor-horizontal {
@@ -24,34 +25,11 @@
 	}
 </style>
 <script type="text/javascript">
+	//Aqui o objeto de carrinhos será montado
+	var produtos = [];
+	
 	$(document).ready(function() { 
-		// Aqui o objeto de carrinhos será montado
-		const produtos = [
-			{
-				"idProduto": 0,
-				"nome": "Violão de Estudos",
-				"marca": "Tagima",
-				"preco": 259.99,
-				"quantidade": 2,
-				"imagem": "produto_0.png",
-			},
-			{
-				"idProduto": 1,
-				"nome": "Guitarra Elétrica",
-				"marca": "Casio",
-				"preco": 155,
-				"quantidade": 3,
-				"imagem": "produto_1.png",
-			},
-			{
-				"idProduto": 2,
-				"nome": "Bateria Bateria Bateria",
-				"marca": "Yamaha",
-				"preco": 155,
-				"quantidade": 1,
-				"imagem": "produto_2.png",
-			}
-		];
+		
 		
 		// Cria o card e a tabela para receber o carrinho
 		const cardCarrinho = `
@@ -85,8 +63,46 @@
 		
 		$("#carrinho").append(cardCarrinho);
 		
+		
+		//Pega todos os cookies e coloca dentro de um Object[]
+		const cookies = document.cookie.split(';').reduce((cookies, cookie) => {
+			  const [ name, value ] = cookie.split('=').map(c => c.trim());
+			  cookies[name] = value;
+			  return cookies;
+			}, {});
+
+		
+		// Percore o const cookies, pega o id e a quantidade de cada um, e faz a requisição ajax
+		for (const c of Object.entries(cookies)) {
+			  const arrayCookie = c[0].split("_");
+				if (arrayCookie[0] == "carrinho") {
+			    	const id = arrayCookie[1].split("-")[1];
+					const qtd = arrayCookie[2].split("-")[1];
+					
+					$.ajax({
+						type: "GET",
+						url: "${pageContext.request.contextPath}/produto/buscar",
+						data: {
+							id: id
+						},
+						success: function(response) {
+							let produto = JSON.parse(response);
+							produto.quantidade = qtd;
+							let linhaProdutoTabela = criarCardCarrinhoProduto(produto)
+							$("#tabela-carrinho").append(linhaProdutoTabela);
+						}
+						
+					});
+			  }
+		};
+		
+		
+		
+		
 		// Cria cada uma das linhas para os produtos no carrinho
-		for(const produto of produtos){
+		for(const i = 0; i < produtos.length; i++){
+			const produto = produtos[i];
+			
 			const fotoUrl = "${pageContext.request.contextPath}/FotosProdutos/" + produto.imagem;
 			
 			let linhaTabela = `
@@ -135,7 +151,7 @@
 			`;
 			
 			// Insere a linha criada na tabela
-			$("#tabela-carrinho").append(linhaTabela);
+			
 			
 		}
 				

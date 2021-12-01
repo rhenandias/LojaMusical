@@ -37,7 +37,8 @@
 					id: id
 				},
 				success: function(response){
-					const produto = JSON.parse(response);
+					console.log(response);
+					const produto = JSON.parse(response); 
 					
 					// Verifica se foi retornado algum produto
 					if(!produto.hasOwnProperty("erro")){
@@ -54,7 +55,7 @@
 						const fotoUrl = "${pageContext.request.contextPath}/FotosProdutos/" + produto.imagem;
 						
 						const cardProduto = `
-							<div class="card">
+							<div class="card" id=\${produto.idProduto}>
 						  		<div class="card-body d-flex flex-row">
 							    	<div >
 							    		<img class="border" src=\${fotoUrl} alt="Imagem do Produto" width="650px">
@@ -106,7 +107,7 @@
 						    				}
 								    			
 							    			
-								    		<form >
+								    		<form class="formAdicionarCarrinho" >
 									    		<!-- Verifica se o produto possui quantidade disponível em estoque -->
 									    		\${produto.quantidade > 0 ? 
 									    		`
@@ -118,7 +119,7 @@
 											    	  </div>
 											    	  <div class="col">
 											    	  	<div class="d-grid gap-2 mx-auto">
-												    	  <button class="btn btn-success" type="button">
+												    	  <button class="btn btn-success" type="button" onclick="adicionarProdutoAoCarrinho(${produto.idProduto})">
 												    	  	<i class="bi bi-cart" style="font-size: 1rem;" ></i>
 															Comprar
 												    	  </button>
