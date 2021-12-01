@@ -106,7 +106,7 @@ function criarCardCarrinhoProduto(produto) {
 		      	  </td>
 		      	  <td>
 		      	  <div class="text-center">
-		      			<i class="bi bi-trash icone-excluir" style="color: red"></i>
+		      			<i class="bi bi-trash icone-excluir" style="color: red" onclick=ajaxExcluirDoCarrinho("${produto.cookieName}")></i>
 		      	  </div>
 		      	  </td>
 			    </tr>
@@ -131,4 +131,18 @@ function adicionarAoCarrinho(idProduto) {
 			alert("Sucesso (Não está recebendo o 'sucesso' via ajax. Coloquei só pra gerar o alerta)");
 		}
 	});
+}
+
+function ajaxExcluirDoCarrinho(cookieName) {
+	$.ajax({
+		type: "GET",
+		url: "carrinho/removerProduto",
+		data: {
+			cookieName: cookieName
+		},
+		success:function(response) {
+			alert("Sucesso (Não está recebendo o 'sucesso' via ajax. Coloquei só pra gerar o alerta)");
+			
+		}
+	})
 }

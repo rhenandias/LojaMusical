@@ -49,6 +49,19 @@ public class CarrinhoController extends HttpServlet {
 				}
 				break;
 			}
+			case "removerProduto": {
+				try {
+					 Cookie cookies[] = request.getCookies();
+					 Arrays.stream(cookies).forEach(x -> {
+						 if (x.getName().equals(request.getParameter("cookieName"))) {
+							 x.setMaxAge(0);
+							 response.addCookie(x);
+						 }
+					 });
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
 			default:
 				Cookie cookies[] = request.getCookies();
 				break;

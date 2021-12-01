@@ -87,6 +87,7 @@
 						},
 						success: function(response) {
 							let produto = JSON.parse(response);
+							produto.cookieName = c[0];
 							produto.quantidade = qtd;
 							let linhaProdutoTabela = criarCardCarrinhoProduto(produto)
 							$("#tabela-carrinho").append(linhaProdutoTabela);
