@@ -19,16 +19,8 @@
 		margin: 0px 20px;
 		padding: 0px;
 	}
-	
-	.link-card {
-		text-decoration: none;
-		color: black;
-	}
-	.link-card:hover{
-		color: grey;
-	}
-	
 </style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Javascript/produto.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		// Lista as categorias existentes
@@ -89,58 +81,8 @@
 						
 						// Cria os cards de produtos
 						for(const produto of produtos){
-							const fotoUrl = "${pageContext.request.contextPath}/FotosProdutos/" + produto.imagem;
-							const produtoUrl = "${pageContext.request.contextPath}/produto/info?id=" + produto.idProduto;
-							
-							let cardProduto = `
-								<div class="card" style="width: 18rem;">
-								  <img src=\${fotoUrl} class="card-img-top" alt="Imagem do Produto" width="100px">
-								  <div class="card-body">
-								  	<a href=\${produtoUrl} class="stretched-link"></a>
-								    <div>
-								    	<h5 class="card-title">\${produto.nome}</h5>
-								    	<h6 class="card-subtitle mb-2 text-muted">\${produto.marca}</h6>
-								    	<div class="my-2">
-									    	<h5 class="card-title">R$\${produto.preco}</h5>
-								    	</div>
-								    	<form class="mt-3" style="position: relative; z-index: 10">
-								    		<!-- Verifica se o produto possui quantidade disponível em estoque -->
-								    		\${produto.quantidade > 0 ? 
-								    		`
-									    		<!-- Formulário de produto disponível -->
-										    	<div class="row" >
-										    	  <div class="col">
-										    	    <input type="number" min="1"  class="form-control" placeholder="1" aria-label="First name">
-										    	  </div>
-										    	  <div class="col">
-										    	  	<div class="d-grid gap-2">
-											    	  <button class="btn btn-success" type="button">
-											    	  	<i class="bi bi-cart" style="font-size: 1rem;" ></i>
-											    	  	<i class="bi bi-plus" style="font-size: 1rem;" ></i>
-											    	  </button>
-											    	</div>
-										    	  </div>
-										    	</div>
-									    	`
-									    	:
-									    	`
-									    		<!-- Formulário de produto disponível -->
-									    		<div class="row " >
-										    	  <div class="col">
-										    	  	<div class="d-grid gap-2">
-											    	  <button class="btn btn-secondary" type="button" disabled>
-											    	  	Indisponível
-											    	  </button>
-											    	</div>
-										    	  </div>
-										    	</div>
-									    	`
-								    		}
-								    	</form>
-								    </div>
-								  </div>
-								</div>
-							`;
+							// Realiza montagem do card de produto através de componentização
+							const cardProduto = criarCardProduto(produto);
 			
 							// Adiciona o card a arvore da pagina
 							$("#" + idLinha).append(cardProduto);

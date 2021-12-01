@@ -19,6 +19,8 @@
 		padding: 0px;
 	}
 </style>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/Javascript/produto.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() { 
 		// Adquire os parâmetros da URL
@@ -80,12 +82,16 @@
 						
 						$.ajax({
 							type: "GET",
-							url: "produto/listar",
+							url: produtosUrl,
 							data: {
-								idCategoria: idCategoria
+								idCategoria: categoria.idCategoria
 							},
 							success: function(responseProdutos){
+								const produtos = JSON.parse(responseProdutos);
+								console.log(produtos);
 								
+								// Realiza montagem do card de produto através de componentização
+								const cardProduto = criarCardProduto(produto);
 							}
 						});
 					} else {
