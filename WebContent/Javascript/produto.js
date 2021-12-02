@@ -29,7 +29,7 @@ function criarCardProduto(produto){
     	  </div>
     	  <div class="col">
     	  	<div class="d-grid gap-2">
-	    	  <button class="btn btn-success" type="button" onclick=adicionarAoCarrinho('${produto.idProduto}')>
+	    	  <button class="btn btn-success" type="button" onclick="adicionarAoCarrinho('${produto.idProduto}', 'cardProduto')">
 	    	  	<i class="bi bi-cart" style="font-size: 1rem;" ></i>
 	    	  	<i class="bi bi-plus" style="font-size: 1rem;" ></i>
 	    	  </button>
@@ -82,7 +82,7 @@ function criarCardCarrinhoProduto(produto) {
 		      	  </td>
 			      <td>
 				      <div class="d-flex flex-column justify-content-center align-items-center">
-						<form>
+						<form id="produto_${produto.idProduto}">
 							<div class="row">
 								<!-- 
 								<div class="col-1">
@@ -90,7 +90,8 @@ function criarCardCarrinhoProduto(produto) {
 								</div>
 								-->
 								<div class"col-1">
-								   <input type="number" min="1" class="form-control" placeholder=${produto.quantidade}>
+								   	<input type="number" name="quantidade" min="1" class="form-control form-control-sm" placeholder=${produto.quantidade} value="${produto.quantidade}">
+									<i style="cursor: pointer;" class="text-success bi bi-check-circle-fill" onclick="atualizarQuantidade(${produto.idProduto})"></i>Atualizar pedido
 								</div>
 								<!--								
 								<div class="col-1">
@@ -102,7 +103,7 @@ function criarCardCarrinhoProduto(produto) {
 						</div>
 		      	  </td>
 		      	  <td>
-		      	  	R$${produto.preco * produto.quantidade}
+		      	  	R$${(produto.preco * produto.quantidade).toFixed(2)}
 		      	  </td>
 		      	  <td>
 		      	  <div class="text-center">
@@ -115,10 +116,25 @@ function criarCardCarrinhoProduto(produto) {
 	return linhaProduto;
 }
 
-function adicionarAoCarrinho(idProduto) {
-	let idCard = "#" + idProduto;
-	let idCardFormInputQuantidade = idCard + " form input[name='quantidade']";
-	let quantidade = $(idCardFormInputQuantidade).val();
+function atualizarQuantidade(idProduto) {
+	ajaxExcluirDoCarrinhoByIdProduto(idProduto);
+	resultado = adicionarAoCarrinho(idProduto, "carrinho");
+	// 	setTimeout(location.reload(),500);
+}
+
+function adicionarAoCarrinho(idProduto, tipo) {
+	let inputQuantidade = "";
+	if (tipo == "cardProduto") {
+		let idCard = "#" + idProduto;
+		inputQuantidade = idCard + " form input[name='quantidade']";
+	} else if (tipo == "carrinho") {
+		inputQuantidade = "#produto_" + idProduto + " input[name='quantidade']";
+		
+	}
+	console.log(inputQuantidade);
+	console.log($(inputQuantidade));
+	let quantidade = $(inputQuantidade).val();
+	console.log("quantidade: " + quantidade);
 	quantidade = quantidade == "" ? 1 : quantidade;
 	$.ajax({
 		type: "GET",
@@ -129,6 +145,7 @@ function adicionarAoCarrinho(idProduto) {
 		},
 		success:function(response) {
 			alert("Sucesso (Não está recebendo o 'sucesso' via ajax. Coloquei só pra gerar o alerta)");
+			return true;
 		}
 	});
 }
@@ -141,7 +158,23 @@ function ajaxExcluirDoCarrinho(cookieName) {
 			cookieName: cookieName
 		},
 		success:function(response) {
-			alert("Sucesso (Não está recebendo o 'sucesso' via ajax. Coloquei só pra gerar o alerta)");
+			alert("Sucesso!!");
+			location.reload();
+			
+		}
+	})
+}
+
+function ajaxExcluirDoCarrinhoByIdProduto(idProduto) {
+	$.ajax({
+		type: "GET",
+		url: "carrinho/removerProdutoById",
+		data: {
+			idProduto: idProduto
+		},
+		success:function(response) {
+			alert("Sucesso!!");
+			location.reload();
 			
 		}
 	})

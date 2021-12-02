@@ -28,6 +28,11 @@
 	//Aqui o objeto de carrinhos será montado
 	var produtos = [];
 	
+	var somaValor = 0;
+	
+	var intervalId = window.setInterval(function(){
+		$('#totalCarrinho').text("R$ " + somaValor.toFixed(2));
+		}, 3000);
 	$(document).ready(function() { 
 		
 		
@@ -53,7 +58,7 @@
 				
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<p class="text-muted">Total:</p> 
-					<h4>R$999,99</h4>
+					<h4 id="totalCarrinho">Calculando...</h4>
 				</div>
 				
 				</div>
@@ -89,6 +94,10 @@
 							let produto = JSON.parse(response);
 							produto.cookieName = c[0];
 							produto.quantidade = qtd;
+							//Soma o valor e corrige o float()
+							let valorAtual = produto.quantidade * produto.preco;
+							somaValor = somaValor + valorAtual;
+							
 							let linhaProdutoTabela = criarCardCarrinhoProduto(produto)
 							$("#tabela-carrinho").append(linhaProdutoTabela);
 						}
@@ -96,7 +105,6 @@
 					});
 			  }
 		};
-		
 		
 		
 		
@@ -154,10 +162,11 @@
 			// Insere a linha criada na tabela
 			
 			
+			
+			intervalId();
 		}
 				
 	});
-
 </script>
 <body>
 	<%@include file="/Resources/navbar.jsp" %>
@@ -182,7 +191,9 @@
 			</div>
 		</div>
 	</div>
-	
+	<script>
+		
+	</script>
 	<%@include file="/Resources/jsBootstrap.jsp" %>
 </body>
 </html>
