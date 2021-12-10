@@ -15,5 +15,3 @@ O sistema é uma loja virtual que contém os produtos separados por categorias, 
 ![image](https://i.postimg.cc/sgBs5Xvp/carrinho-compras.png)
 
 ![image](https://i.postimg.cc/HsqPPs60/login.png)
-
-![image](https://i.postimg.cc/sgBs5Xvp/carrinho-compras.png)
