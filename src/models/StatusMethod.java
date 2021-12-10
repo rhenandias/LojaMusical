@@ -18,6 +18,12 @@ public class StatusMethod {
 		Titulo = titulo;
 		this.mensagem = mensagem;
 	}
+	
+	public void setStatusTitutloMensagem(STATUS status, String titulo, String mensagem) {
+		this.status = status;
+		this.Titulo = titulo;
+		this.mensagem = mensagem;
+	}
 
 	public STATUS getStatus() {
 		return status;
@@ -47,6 +53,8 @@ public class StatusMethod {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
+	
+	
 	
 	
 	
