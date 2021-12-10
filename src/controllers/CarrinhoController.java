@@ -1,8 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
 
 import models.CookieCreator;
+import models.ProdutoModel;
+import models.StatusMethod;
+import models.enums.STATUS;
+import services.ProdutoService;
 
 @WebServlet("/carrinho/*")
 public class CarrinhoController extends HttpServlet {
@@ -154,8 +160,71 @@ public class CarrinhoController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String action = request.getParameter("action");
+		StatusMethod st = null;
 		
+		
+		
+		if (verificarAction(action) && action.equals("finalizar_compra")) {
+			
+			if (request.getSession().getAttribute("idUsuario") == null) {
+				st = new StatusMethod(STATUS.ERROR, "Logue-se para realizar a compra", "Para realizar a compra, é necessário cadastrar ou logar na loja!");
+			} else {
+				ProdutoService produtoService = new ProdutoService();
+				Cookie cookies[] = request.getCookies();
+				CookieCreator cookieDesfragmentado = new CookieCreator();
+				List<ProdutoModel> produtos = new ArrayList<>();
+				
+				final Double[] soma = new Double[1];
+				soma[0] = 0.00;
+				//Transforma os cookies do carrinho em produtos e adiciona em uma lista.
+				Arrays.stream(cookies)
+					.filter(
+						cookie -> cookie.getName().split("_")[0].equals("carrinho") )
+					.forEach(cookie -> {
+					cookieDesfragmentado.pegarValoresPeloNomeCookie(cookie.getName());
+					
+					if (cookieDesfragmentado.getTipo().equals("carrinho")) {
+						ProdutoModel produto = new ProdutoModel(cookieDesfragmentado.getId(), cookieDesfragmentado.getQuantidade());
+						
+						ProdutoModel produtoTemp = produtoService.pegarDadosProduto(produto.getIdProduto());
+						produto.setPreco(produtoTemp.getPreco());
+						produtos.add(produto);
+						soma[0] += produtoTemp.getPreco() * produto.getQuantidade();
+					}
+				});
+				
+				Integer idUsuario = Integer.parseInt(request.getSession().getAttribute("idUsuario").toString());
+				Integer idVenda = produtoService.inserirVendaTotal(soma[0], idUsuario);
+				produtos.forEach(produto -> {
+					produtoService.inserirVendaProduto(produto, idVenda);	
+				});
+
+				Arrays.stream(cookies)
+					.filter(
+						cookie -> cookie.getName().split("_")[0].equals("carrinho") )
+					.forEach(cookie -> {
+							cookie.setMaxAge(0);
+							cookie.setPath("/LojaMusical/carrinho");
+							response.addCookie(cookie);
+					});
+				st = new StatusMethod(STATUS.SUCCESS, "Compra efetuada com sucesso", "Sua compra foi realizada. Confira o seu email para mais informações");
+			}
+		}
+		
+		if (st != null) {
+			request.setAttribute("status", st.status.toString().toLowerCase());
+			request.setAttribute("statusTitulo", st.getTitulo());
+			request.setAttribute("statusTexto", st.getMensagem());
+		}
 		doGet(request, response);
+	}
+	
+	public boolean verificarAction(String action) {
+		if (action != null && !action.equals("")) {
+			return true;
+		}
+		return false;
 	}
 
 }
