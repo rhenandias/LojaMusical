@@ -16,6 +16,10 @@ public class DB {
 		return null;
 	}
 	
+	/*
+	 * Utilizar este método quando precisar realizar uma query do tipo SELECT
+	 * 
+	 */
 	public static ResultSet executarQuery(String query) {
 		try {
 			DBConnection db = new DBConnection();
@@ -26,6 +30,10 @@ public class DB {
 		return null;
 	}
 	
+	/*
+	 * Utilizar este método qunado precisar uma query do tipo INSERT, UPDATE e DELETE
+	 * 
+	 */
 	public static ResultSet executarQuery(String query, boolean querRetornarID) {
 		try {
 			DBConnection db = new DBConnection();
