@@ -28,6 +28,12 @@ public class ProdutoModel {
 		this.setIdProduto(Integer.parseInt(idProduto));
 	}
 	
+	public ProdutoModel(Integer idProduto, int quantidade) {
+		super();
+		this.idProduto = idProduto;
+		this.quantidade = quantidade;
+	}
+	
 	public ProdutoModel(Integer idProduto, int idCategoria, int idFornecedor, String nome, String marca, Double preco, Double custo, int quantidade, String imagem, String descricao) {
 		super();
 		this.idProduto = idProduto;
