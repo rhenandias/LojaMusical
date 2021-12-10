@@ -1,18 +1,20 @@
 package models;
 
+import java.util.Date;
+
 import com.mysql.fabric.xmlrpc.base.Data;
 
 public class VendaModel {
 	private int idVenda;
 	private int idUsuario;
 	private int idStatusAndamento;
-	private Data data;
+	private Date data;
 	private Float valor;
 	
 	
 	public VendaModel() { }
 	
-	public VendaModel(int idVenda, int idUsuario, int idStatusAndamento, Data data, Float valor ) {
+	public VendaModel(int idVenda, int idUsuario, int idStatusAndamento, Date data, Float valor ) {
 		super();
 		this.idVenda = idVenda;
 		this.idUsuario = idUsuario;
@@ -40,10 +42,10 @@ public class VendaModel {
 	public void setIdStatusAndamento(int idStatusAndamento) {
 		this.idStatusAndamento = idStatusAndamento;
 	}
-	public Data getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(Data data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	public Float getValor() {
@@ -54,3 +56,4 @@ public class VendaModel {
 	}
 	
 }
+ 
