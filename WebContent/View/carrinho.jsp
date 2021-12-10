@@ -171,6 +171,8 @@
 <body>
 	<%@include file="/Resources/navbar.jsp" %>
 	
+	<%@include file="/Resources/alertStatusMethod.jsp" %>
+	
 	<div class="container-fluid d-flex">
 		<div id="card-produto" class="container-fluid d-flex flex-column justify-content-center p-4">
 			<div class="container-fluid">
@@ -183,10 +185,13 @@
 			<div class="container-fluid">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			  <button class="btn btn-outline-secondary" type="button">Continuar comprando</button>
-			  <button class="btn btn-success" type="button">
-			  	<i class="bi bi-check" style="font-size: 1rem;"></i> 
-			  	Finalizar Compra
-			  	</button>
+			  <form method="POST" action="">
+				  <input hidden name="action" value="finalizar_compra">		  	
+				  <button class="btn btn-success" type="submit">
+				  	<i class="bi bi-check" style="font-size: 1rem;"></i> 
+				  	Finalizar Compra
+				  	</button>
+			  	</form>
 			</div>
 			</div>
 		</div>
