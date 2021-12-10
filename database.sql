@@ -208,6 +208,7 @@ CREATE TABLE `StatusAndamento` (
 --
 
 LOCK TABLES `StatusAndamento` WRITE;
+INSERT INTO `lojamusical`.`StatusAndamento` (`idStatus`,`nome`) VALUES ('1', 'Produto em separação');
 /*!40000 ALTER TABLE `StatusAndamento` DISABLE KEYS */;
 /*!40000 ALTER TABLE `StatusAndamento` ENABLE KEYS */;
 UNLOCK TABLES;
