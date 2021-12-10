@@ -6,7 +6,7 @@ Sistema desenvolvido na matéria de PWE (Projeto WEB)
 
 O sistema é uma loja virtual que contém os produtos separados por categorias, carrinho de compras, e acompanhamento de pedidos
 
-#Imagens
+# Imagens
 
 ![image](https://i.postimg.cc/xCQQr3gR/tela-inicial.png)
 
