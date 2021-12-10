@@ -10,7 +10,7 @@ public class UsuarioService {
 	
 	public UsuarioModel logar(String email, String senha) {
 		try {
-			ResultSet rs = DB.executarQuery("SELECT * FROM `Usuario` WHERE email = '" + email + "' AND senha = '" + senha + "'");
+			ResultSet rs = DB.executarQuery("SELECT * FROM `Usuario` WHERE email = '" + email + "' AND senha = '" + senha + "' AND ativo = 1");
 			if (rs.next()) {
 				Integer idUsuario = rs.getInt("idUsuario");
 				UsuarioModel user = new UsuarioModel(idUsuario);
