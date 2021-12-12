@@ -19,6 +19,7 @@ public class ProdutoService {
 		if (produtoNoBanco.getQuantidade() < produto.getQuantidade()) {
 			st.setStatusTitutloMensagem(STATUS.ERROR, "Quantidade insuficiente", "A quantidade disponivel é menor do que a requerida");
 		} else {
+			
 			String query = "INSERT INTO `VendaProduto`\r\n" + 
 					"(`idVenda`,`idProduto`,`quantidade`,`valor`) VALUES ('" 
 					+ idVendaTotal + "','" + produto.getIdProduto() + "','" + produto.getQuantidade() + "','" + produto.getPreco() + "');";
@@ -37,6 +38,16 @@ public class ProdutoService {
 		
 		
 		return st;
+	}
+	
+	public void retirarQuantidadeProduto(int idProduto, int quantidade) {
+		ProdutoModel produto = pegarDadosProduto(idProduto);
+		int quantiaRestante = produto.getQuantidade() - quantidade;
+		if (quantidade >= 0) {
+			String query = "UPDATE `Produto` SET `quantidade` = " + quantiaRestante +  " WHERE `idProduto` = "+produto.getIdProduto() +" ;";
+			DB.executarQuery(query, true);
+		}
+		
 	}
 	
 	public ProdutoModel pegarDadosProduto(int idProduto) {
