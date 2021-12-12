@@ -130,8 +130,8 @@
 						<div class="d-flex align-items-center">
 					    	<i class="bi bi-box" style="font-size: 2rem; color: white;"></i>
 							<div style="font-size: 0.8rem">
-								<a class="nav-link" style="line-height: 0.3rem" href="#">Meus Pedidos</a>
-								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/meusPedidos">Sair</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/meusPedidos">Meus Pedidos</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/usuario/sair">Sair</a>
 							</div>
 						</div>
 					</li>	
