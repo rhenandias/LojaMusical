@@ -197,7 +197,10 @@ public class CarrinhoController extends HttpServlet {
 				Integer idUsuario = Integer.parseInt(request.getSession().getAttribute("idUsuario").toString());
 				Integer idVenda = produtoService.inserirVendaTotal(soma[0], idUsuario);
 				produtos.forEach(produto -> {
-					produtoService.inserirVendaProduto(produto, idVenda);	
+					StatusMethod stTemp = produtoService.inserirVendaProduto(produto, idVenda);
+					if (stTemp.getStatus() == STATUS.SUCCESS) {
+						produtoService.retirarQuantidadeProduto(produto.getIdProduto(), produto.getQuantidade());
+					}
 				});
 
 				Arrays.stream(cookies)
