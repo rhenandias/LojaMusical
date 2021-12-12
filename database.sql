@@ -209,6 +209,9 @@ CREATE TABLE `StatusAndamento` (
 
 LOCK TABLES `StatusAndamento` WRITE;
 INSERT INTO `lojamusical`.`StatusAndamento` (`idStatus`,`nome`) VALUES ('1', 'Produto em separação');
+INSERT INTO `lojamusical`.`StatusAndamento` (`idStatus`,`nome`) VALUES ('2', 'Enviando para a transportadora');
+INSERT INTO `lojamusical`.`StatusAndamento` (`idStatus`,`nome`) VALUES ('3', 'Enviando para o cliente');
+INSERT INTO `lojamusical`.`StatusAndamento` (`idStatus`,`nome`) VALUES ('4', 'Pedido recebido');
 /*!40000 ALTER TABLE `StatusAndamento` DISABLE KEYS */;
 /*!40000 ALTER TABLE `StatusAndamento` ENABLE KEYS */;
 UNLOCK TABLES;
