@@ -251,6 +251,8 @@ CREATE TABLE `Usuario` (
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
 INSERT INTO `Usuario` VALUES (1,1,'Rhenan Dias','diasrhenan@gmail.com','99999999','123123','447654',1,'NUQX6HIXHN','Rua das Ruas','123','Bairro dos Bairros','Cidade das Cidades','null');
+INSERT INTO `Usuario` VALUES (2,2,'Admin','admin@admin.com','111111','admin','111111',1,'NUQKSLMKIS','Rua admin','1','Admin','Admin','null');
+
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
