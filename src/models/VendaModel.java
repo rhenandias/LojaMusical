@@ -63,6 +63,34 @@ public class VendaModel {
 		return json;
 	}
 	
+	public List<VendaModel> listarEmArray() {
+		List<VendaModel> vendas = new ArrayList<>();
+		String query = "SELECT * FROM `Venda`";
+		
+		ResultSet rs = DB.executarQuery(query);
+		try {
+			while (rs.next()) {
+				Date date = null;
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				 try {
+					date = format.parse(rs.getString("data"));
+					
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				VendaModel venda = new VendaModel(
+					rs.getInt("idVenda"), rs.getInt("idStatus"), rs.getInt("idStatus"), date, rs.getFloat("valor")
+				);
+				vendas.add(venda);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return vendas;
+	}
+	
 	public int getIdVenda() {
 		return idVenda;
 	}

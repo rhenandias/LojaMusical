@@ -1,15 +1,14 @@
 function criarCardVenda(venda, statusAndamento) {
-
 	let linhaVenda =`
 				<tr class="my-2">
 			      <td>
 			      	<div class="container-fluid d-flex flex-row align-items-center m-0 p-0">
-			      		${venda.idVenda}
+			      		${venda.venda.idVenda}
 			      	</div>
 			      </td>
 				  <td>
 				      <div class="d-flex flex-column ">
-						<form id="venda_${venda.idVenda}">
+						<form id="venda_${venda.venda.idVenda}">
 							<div class="">
 								<!-- 
 								<div>
@@ -21,7 +20,7 @@ function criarCardVenda(venda, statusAndamento) {
 										#SELECT_STATUS_ANDAMENTO
 									</div>
 								   	<div class="col">
-										<i style="cursor: pointer;" class="text-success bi bi-check-circle-fill" onclick="atualizarStatus(${venda.idVenda})"></i>Atualizar status
+										<i style="cursor: pointer;" class="text-success bi bi-check-circle-fill" onclick="atualizarStatus(${venda.venda.idVenda})"></i>Atualizar status
 									</div>
 								</div>
 								<!--								
@@ -35,13 +34,20 @@ function criarCardVenda(venda, statusAndamento) {
 		      	  </td>
 			      <td>
 			      	<div class="container-fluid d-flex flex-row align-items-center m-0 p-0">
-			      		R$${venda.valor}
+			      		R$${venda.venda.valor}
 		      		</div>
 		      	  </td>
-		      	  <td>
-		      	  	${venda.data}
+		      	  <td class="align-items-center">
+		      	  	${venda.venda.data}
 		      	  </td>
 			    </tr>
+				<tr>
+					<td colspan="4" class="ml-2">
+						<p>Usuario: ${venda.usuario.nome}<p>
+						<p>Endereço de entrega: ${venda.usuario.endereco} , ${venda.usuario.numero} . ${venda.usuario.bairro}, ${venda.usuario.cidade} - ${venda.usuario.estado}</p>
+						<p>Produtos: ${venda.produtos}</p>
+					</td>
+				</tr>
 			`;
 
 	let selectStatusAndamento = `
@@ -52,7 +58,7 @@ function criarCardVenda(venda, statusAndamento) {
 
 	statusAndamento.forEach(status => {
 		
-		let isWithSelected = (venda.idStatusAndamento == status.idStatus) ? "selected=''" : "";
+		let isWithSelected = (venda.venda.idStatusAndamento == status.idStatus) ? "selected=''" : "";
 		selectStatusAndamento = selectStatusAndamento.replace("#OPTION_RESERVADO", "<option " + isWithSelected + " value='" + status.idStatus + "'>" + status.nome + "</option> #OPTION_RESERVADO");
 		
 		if (isWithSelected) {
