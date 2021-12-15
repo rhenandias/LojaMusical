@@ -144,7 +144,7 @@ function adicionarAoCarrinho(idProduto, tipo) {
 			quantidade: quantidade
 		},
 		success:function(response) {
-			alert("Sucesso (Não está recebendo o 'sucesso' via ajax. Coloquei só pra gerar o alerta)");
+			alert("Adicionado ao carrinho");
 			return true;
 		}
 	});
@@ -158,7 +158,7 @@ function ajaxExcluirDoCarrinho(cookieName) {
 			cookieName: cookieName
 		},
 		success:function(response) {
-			alert("Sucesso!!");
+			alert("Item excluído do carrinho!!");
 			location.reload();
 			
 		}
@@ -173,7 +173,7 @@ function ajaxExcluirDoCarrinhoByIdProduto(idProduto) {
 			idProduto: idProduto
 		},
 		success:function(response) {
-			alert("Sucesso!!");
+			alert("Excluido do carrinho!!");
 			location.reload();
 			
 		}

@@ -1,9 +1,15 @@
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.google.gson.JsonObject;
+
+import database.DB;
 
 public class Pedido {
 	

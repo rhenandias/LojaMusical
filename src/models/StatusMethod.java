@@ -1,5 +1,7 @@
 package models;
 
+import com.google.gson.JsonObject;
+
 import models.enums.STATUS;
 
 public class StatusMethod {
@@ -23,6 +25,14 @@ public class StatusMethod {
 		this.status = status;
 		this.Titulo = titulo;
 		this.mensagem = mensagem;
+	}
+	
+	public String retornarEmFormatoJson() {
+		JsonObject json = new JsonObject();
+		json.addProperty("status", status.toString().toLowerCase());
+		json.addProperty("titulo", Titulo.toString());
+		json.addProperty("mensagem", mensagem.toString());
+		return json.toString();
 	}
 
 	public STATUS getStatus() {

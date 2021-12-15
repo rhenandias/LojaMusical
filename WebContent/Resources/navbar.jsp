@@ -143,11 +143,23 @@
 						<div class="d-flex align-items-center">
 					    	<i class="bi bi-gear" style="font-size: 2rem; color: white;"></i>
 							<div style="font-size: 0.8rem">
-								<a class="nav-link" style="line-height: 0.3rem" href="#">Painel da Loja</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/vendas">Atualizar pedidos</a>
 								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/usuario/sair">Sair</a>
 							</div>
 						</div>
-					</li>	
+					</li>
+					<li>
+			 			<div class="vertical-divider"></div>
+			 		</li>
+					<li class="nav-item">
+						<div class="d-flex align-items-center">
+						    <i class="bi bi-bag-check" style="font-size: 2rem; color: white;"></i>
+							<div style="font-size: 0.8rem">
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/produto/cadastrar">Cadastrar Produto</a>
+								<a class="nav-link" style="line-height: 0.3rem" href="${pageContext.request.contextPath}/estoque">Adicionar produto ao estoque</a>
+							</div>
+						</div>
+					</li>
 				<% } %>
 				
 				<!-- Carrinho aparece para todos os tipos de usuários -->
