@@ -70,7 +70,7 @@ public class UsuarioController extends HttpServlet {
 		
 		
 		String action = request.getParameter("action");
-		String[] parametros = {"email", "senha", "nome_completo", "cpf", "telefone", "endereco", "numero", "bairro", "cidade", "uf", };
+		String[] parametros = {"email", "senha", "nome_completo", "cpf", "telefone", "endereco", "numero", "bairro", "cidade", "uf" };
 		Map<String, String> pValues = new HashMap<String, String>();
 		
 		
@@ -84,7 +84,7 @@ public class UsuarioController extends HttpServlet {
 			UsuarioModel userCadastro = new UsuarioModel(
 					pValues.get("nome_completo"), pValues.get("email"), pValues.get("telefone"), 
 					pValues.get("senha"), pValues.get("cpf"), false, "", pValues.get("endereco"), pValues.get("numero"),
-					pValues.get("bairro"), pValues.get("cidade"), pValues.get("estado")
+					pValues.get("bairro"), pValues.get("cidade"), pValues.get("uf")
 					);
 			try {
 				if (!userCadastro.existCadastro()) {
