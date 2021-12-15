@@ -171,7 +171,7 @@ public class UsuarioModel {
 	
 	public void enviarEmailDeAtivacao() {
 		String link = "http://localhost:8080/LojaMusical/AtivacaoConta?id=" + this.idUsuario + "&codigo=" + this.codigoAtivacao;
-		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativaï¿½ï¿½o da conta", link);
+		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativação da conta", link);
 	}
 	
 	public boolean cadastrarNoBanco() throws SQLException {
