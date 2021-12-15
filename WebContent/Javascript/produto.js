@@ -1,5 +1,6 @@
 function criarCardProduto(produto){
 	
+	
 	const fotoUrl = "/LojaMusical/FotosProdutos/" + produto.imagem;
 	const produtoUrl = "/LojaMusical/produto/info?id=" + produto.idProduto;
 	
@@ -130,15 +131,14 @@ function adicionarAoCarrinho(idProduto, tipo) {
 	} else if (tipo == "carrinho") {
 		inputQuantidade = "#produto_" + idProduto + " input[name='quantidade']";
 		
+	} else if (tipo == "produtoInfo") {
+		inputQuantidade = ".formAdicionarCarrinho input[name='quantidade']";
 	}
-	console.log(inputQuantidade);
-	console.log($(inputQuantidade));
 	let quantidade = $(inputQuantidade).val();
-	console.log("quantidade: " + quantidade);
 	quantidade = quantidade == "" ? 1 : quantidade;
 	$.ajax({
 		type: "GET",
-		url: "carrinho/inserirProduto",
+		url: "/LojaMusical/carrinho/inserirProduto",
 		data: {
 			idProduto: idProduto,
 			quantidade: quantidade

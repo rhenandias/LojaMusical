@@ -19,6 +19,7 @@
 		padding: 0px;
 	}
 </style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Javascript/produto.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() { 
 		// Adquire os parâmetros da URL
@@ -115,11 +116,11 @@
 									    		<div >
 											    	<div class="row ">
 											    	  <div class="col-3">
-											    	    <input type="number" min="1"  class="form-control" placeholder="1" aria-label="First name">
+											    	    <input type="number" min="1"  name="quantidade" class="form-control" placeholder="1" aria-label="First name">
 											    	  </div>
 											    	  <div class="col">
 											    	  	<div class="d-grid gap-2 mx-auto">
-												    	  <button class="btn btn-success" type="button" onclick="adicionarProdutoAoCarrinho(${produto.idProduto})">
+												    	  <button class="btn btn-success" type="button" onclick="adicionarAoCarrinho('\${produto.idProduto}', 'cardProduto')">
 												    	  	<i class="bi bi-cart" style="font-size: 1rem;" ></i>
 															Comprar
 												    	  </button>

@@ -8,20 +8,24 @@ function criarCardVenda(venda, statusAndamento) {
 			      	</div>
 			      </td>
 				  <td>
-				      <div class="d-flex flex-column justify-content-center align-items-center">
+				      <div class="d-flex flex-column ">
 						<form id="venda_${venda.idVenda}">
-							<div class="row">
+							<div class="">
 								<!-- 
-								<div class="col-1">
+								<div>
 									<i class="bi bi-dash-lg"></i>
 								</div>
 								-->
-								<div class"col-1">
-								   	#SELECT_STATUS_ANDAMENTO
-									<i style="cursor: pointer;" class="text-success bi bi-check-circle-fill" onclick="atualizarStatus(${venda.idVenda})"></i>Atualizar status
+								<div class="row">
+									<div class="col"> 
+										#SELECT_STATUS_ANDAMENTO
+									</div>
+								   	<div class="col">
+										<i style="cursor: pointer;" class="text-success bi bi-check-circle-fill" onclick="atualizarStatus(${venda.idVenda})"></i>Atualizar status
+									</div>
 								</div>
 								<!--								
-								<div class="col-1">
+								<div >
 									<i class="bi bi-plus-lg"></i>
 								</div>
 								-->
@@ -41,14 +45,20 @@ function criarCardVenda(venda, statusAndamento) {
 			`;
 
 	let selectStatusAndamento = `
-		<select name='status'>
+		<select class='#CLASSE_BG_STATUS form-control' name='status'>
 			#OPTION_RESERVADO
 		</select>
 	`;
 
 	statusAndamento.forEach(status => {
+		
 		let isWithSelected = (venda.idStatusAndamento == status.idStatus) ? "selected=''" : "";
 		selectStatusAndamento = selectStatusAndamento.replace("#OPTION_RESERVADO", "<option " + isWithSelected + " value='" + status.idStatus + "'>" + status.nome + "</option> #OPTION_RESERVADO");
+		
+		if (isWithSelected) {
+			let nomeClasseDiv = retorneClassesDivComBaseNoStatus(status.idStatus);
+			selectStatusAndamento = selectStatusAndamento.replace("#CLASSE_BG_STATUS", nomeClasseDiv);
+		} 
 	});
 
 	selectStatusAndamento = selectStatusAndamento.replace("#OPTION_RESERVADO", "");
@@ -57,6 +67,29 @@ function criarCardVenda(venda, statusAndamento) {
 
 
 	return linhaVenda;
+}
+
+function retorneClassesDivComBaseNoStatus(idStatus) {
+	let divStatusNomeClasse;
+	switch (idStatus) {
+		case 1:
+			divStatusNomeClasse = 'bg-danger text-white';
+			break;
+		case 2:
+			divStatusNomeClasse = 'bg-info text-white';
+			break;
+		case 3:
+			divStatusNomeClasse = 'bg-primary text-white';
+			break;
+		case 4:
+			divStatusNomeClasse = 'bg-success text-white';
+			break;
+		default:
+			divStatusNomeClasse = '';
+			break;
+	}
+	
+	return divStatusNomeClasse;
 }
 
 function atualizarStatus(idVenda) {
@@ -70,6 +103,7 @@ function atualizarStatus(idVenda) {
 		},
 		success: function(response) {
 			alert("Atualizado com sucesso!");
+			location.reload();
 		}
 	});
 
