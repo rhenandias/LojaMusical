@@ -184,7 +184,9 @@
 			</div>
 			<div class="container-fluid">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-			  <button class="btn btn-outline-secondary" type="button">Continuar comprando</button>
+			<a href="${pageContext.request.contextPath}/home">
+			  <button class="btn btn-outline-secondary" type="button" >Continuar comprando</button>
+			</a>
 			  <form method="POST" action="">
 				  <input hidden name="action" value="finalizar_compra">		  	
 				  <button class="btn btn-success" type="submit">
