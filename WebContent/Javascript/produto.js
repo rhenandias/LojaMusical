@@ -173,7 +173,6 @@ function ajaxExcluirDoCarrinhoByIdProduto(idProduto) {
 			idProduto: idProduto
 		},
 		success:function(response) {
-			alert("Excluido do carrinho!!");
 			location.reload();
 			
 		}
