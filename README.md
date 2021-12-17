@@ -26,7 +26,7 @@ Loja de instrumentos e acessórios musicais
 
 ## || Link do Vídeo explicando o uso:
 
-[Link do vídeo](https://example.com/my-link "link title")
+[Link do vídeo](https://www.youtube.com/watch?v=igsKySc-InY)
 
 ## || Reposítório
 
