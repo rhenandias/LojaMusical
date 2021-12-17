@@ -3,7 +3,6 @@
 ## | LojaMusical
 
 Sistema desenvolvido na matéria de PWE (Projeto WEB)
-João Victor de Oliveira | GU3013197 | Função: Analista, testador e responsável pela criação e população do banco de dados
 
 ## | Como funciona
 
