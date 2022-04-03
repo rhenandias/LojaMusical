@@ -83,10 +83,28 @@ public class ProdutoController extends HttpServlet {
 			response.getWriter().write(resultados);
 		} break;
 		case "cadastrar":
+		{
+			// Solyção para exposição de dados sensíveis:
+			
+			/*
+			String idNivelUsuario = (String) request.getSession().getAttribute("idNivelUsuario");
+			
+			if (idNivelUsuario == null || Integer.parseInt(idNivelUsuario) != 2) {
+                response.sendRedirect(request.getContextPath() + "/home");
+			} else {
+				RequestDispatcher tagFile = null;
+                tagFile = getServletContext().getRequestDispatcher("/View/produto/cadastrarProduto.jsp");
+                tagFile.forward(request, response);
+			}
+			
+			*/
+			
+			// Versão original com falha:
 			RequestDispatcher tagFile = null;
 			tagFile = getServletContext().getRequestDispatcher("/View/produto/cadastrarProduto.jsp");
 			tagFile.forward(request, response);
-			break;
+			
+		} break;
 		default:
 			response.getWriter().write("Outra página");
 		}
@@ -145,7 +163,7 @@ public class ProdutoController extends HttpServlet {
 				if (boolFezUpload) {
 					st = new StatusMethod(STATUS.SUCCESS, "Cadastrado com sucesso", "Upload dos dados feitos com sucesso");
 				} else {
-					st = new StatusMethod(STATUS.ERROR, "Erro ao cadastrar", "N�o foi poss�vel fazer o upload");
+					st = new StatusMethod(STATUS.ERROR, "Erro ao cadastrar", "N�o foi poss�vel fazer o upload");
 				}
 			} else {
 				 st = produtoCadastrado;

@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +22,7 @@ import com.mysql.cj.Session;
 import models.StatusMethod;
 import models.UsuarioModel;
 import models.enums.STATUS;
+import services.GeneratePasswordUtil;
 import services.UsuarioService;
 
 @WebServlet("/usuario/*")
@@ -44,6 +47,7 @@ public class UsuarioController extends HttpServlet {
 				tagFile.forward(request, response);
 			} break;
 			case "login": {
+						
 				if (request.getSession().getAttribute("idUsuario") != null) {
 					response.sendRedirect(request.getContextPath() + "/home");
 				} else {
@@ -73,30 +77,45 @@ public class UsuarioController extends HttpServlet {
 		String[] parametros = {"email", "senha", "nome_completo", "cpf", "telefone", "endereco", "numero", "bairro", "cidade", "uf" };
 		Map<String, String> pValues = new HashMap<String, String>();
 		
-		
-		
+				
 		if (action.equals("cadastrar")) {
 			
+					
 			Arrays.stream(parametros).forEach(parameter -> {
 				pValues.put(parameter, request.getParameter(parameter));
 			});
 			
+			// SoluÃ§Ã£o para encriptaÃ§Ã£o da senha:
+			
+			/*
+			
+			String password = GeneratePasswordUtil.generate(pValues.get("senha"));
+			
 			UsuarioModel userCadastro = new UsuarioModel(
 					pValues.get("nome_completo"), pValues.get("email"), pValues.get("telefone"), 
-					pValues.get("senha"), pValues.get("cpf"), false, "", pValues.get("endereco"), pValues.get("numero"),
+					password, pValues.get("cpf"), true, "", pValues.get("endereco"), pValues.get("numero"),
 					pValues.get("bairro"), pValues.get("cidade"), pValues.get("uf")
 					);
+			*/
+			
+			// VersÃ£o original com falha:
+			UsuarioModel userCadastro = new UsuarioModel(
+					pValues.get("nome_completo"), pValues.get("email"), pValues.get("telefone"), 
+					pValues.get("senha"), pValues.get("cpf"), true, "", pValues.get("endereco"), pValues.get("numero"),
+					pValues.get("bairro"), pValues.get("cidade"), pValues.get("uf")
+					);
+			
 			try {
 				if (!userCadastro.existCadastro()) {
 					userCadastro.cadastrarNoBanco();
 					request.setAttribute("status", "success");
 					request.setAttribute("statusTitulo", "Sucesso!!");
-					request.setAttribute("statusTexto", "Cadastrado com sucesso!! Verifique seu email para ativação");
+					request.setAttribute("statusTexto", "Cadastrado com sucesso!! Verifique seu email para ativaï¿½ï¿½o");
 					
 				} else {
 					request.setAttribute("status", "error");
 					request.setAttribute("statusTitulo", "Erro!!");
-					request.setAttribute("statusTexto", "Esse usuario já existe no sistema!");
+					request.setAttribute("statusTexto", "Esse usuario jï¿½ existe no sistema!");
 					
 				}
 				
@@ -106,8 +125,11 @@ public class UsuarioController extends HttpServlet {
 			}
 			
 		} else if (action.equals("login")) {
+			
+			String inputPassword = request.getParameter("senha");
+			
 			UsuarioService userService = new UsuarioService();
-			UsuarioModel user = userService.logar(request.getParameter("email"), request.getParameter("senha"));
+			UsuarioModel user = userService.logar(request.getParameter("email"), inputPassword);
 			
 			StatusMethod st;
 			if (user != null) {
@@ -118,7 +140,7 @@ public class UsuarioController extends HttpServlet {
 				session.setAttribute("idNivelUsuario", user.getIdNivelUsuario());
 				
 			} else {
-				st = new StatusMethod(STATUS.ERROR, "Login incorreto", "As credenciais informadas estão incorretas");
+				st = new StatusMethod(STATUS.ERROR, "Login incorreto", "As credenciais informadas estï¿½o incorretas");
 				
 				
 				request.setAttribute("status", st.status.toString().toLowerCase());

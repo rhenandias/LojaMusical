@@ -171,11 +171,10 @@ public class UsuarioModel {
 	
 	public void enviarEmailDeAtivacao() {
 		String link = "http://localhost:8080/LojaMusical/AtivacaoConta?id=" + this.idUsuario + "&codigo=" + this.codigoAtivacao;
-		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativação da conta", link);
+		EnviarEmail.enviarEmailAtravesDoGoogle(this.email, "Link para ativaï¿½ï¿½o da conta", link);
 	}
 	
 	public boolean cadastrarNoBanco() throws SQLException {
-		
 		
 		String queryInsert = "INSERT INTO `Usuario`\r\n" + 
 					"		(`idUsuario`,\r\n" + 
@@ -216,8 +215,8 @@ public class UsuarioModel {
 		Integer id = rs.getInt(1);
 		this.idUsuario = id;
 			
-		gerarCodigoAtivacao();
-		enviarEmailDeAtivacao();
+		// gerarCodigoAtivacao();
+		// enviarEmailDeAtivacao();
 		return true;
 		
 		
